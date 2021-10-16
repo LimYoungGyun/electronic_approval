@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.electronicapproval.employee.dao.EmployeeDAO">
+	<select id="selectEmployeeByEmailAndPassword" parameterType="map" resultType="com.electronicapproval.employee.model.Employee">
+		SELECT
+			`id`
+			, `name`
+			, `email`
+			, `password`
+			, `residentNumber`
+			, `dateHired`
+			, `totAnnualLeave`
+			, `useAnnualLeave`
+			, `remainAnnualLeave`
+			, `groupId`
+			, `positionId`
+			, `officialId`
+			, `annualIncome`
+			, `salary`
+			, `authorityPost`
+			, `authorityGroup`
+			, `authorityEmployee`
+			, `authorityCommute`
+			, `authorityForm`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`employee`
+		WHERE
+			`email` = #{email}
+			AND `password` = #{password}
+	</select>
+</mapper>

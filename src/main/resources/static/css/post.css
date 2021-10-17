@@ -1,0 +1,35 @@
+@charset "UTF-8";
+.page-content-size {
+	width: 100%;
+}
+.page-content-size .contents .content {
+	display: block;
+}
+.page-content-size table {
+	margin-top: 20px;
+}
+.page-content-size .contents .content input, 
+.page-content-size .contents .content textarea {
+	width: 70%;
+	margin-bottom: 20px;
+}
+.page-content-size .contents .content .detailTable {
+	width: 70%;
+}
+/* .page-content-size .contents .content .detailTable th{ */
+/* 	background: #808080; */
+/* } */
+.buttonLine {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+}
+.buttonLine.inputpage {
+	width: 70%;
+}
+.buttonLine .postRegistBtn,
+.buttonLine .postDetailBtn,
+.buttonLine .postRegistViewBtn {
+	margin-left: 20px;
+	width: 90px;
+}

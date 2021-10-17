@@ -11,4 +11,6 @@ public interface EmployeeDAO {
 	public Employee selectEmployeeByEmailAndPassword(
 			@Param("email") String email
 			, @Param("password") String password);
+	
+	public String selectNameById(int id);
 }

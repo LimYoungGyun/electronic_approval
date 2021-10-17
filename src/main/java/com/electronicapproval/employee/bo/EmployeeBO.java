@@ -15,4 +15,8 @@ public class EmployeeBO {
 	public Employee getEmployeeByEmailAndPassword(String email, String password) {
 		return employeeDAO.selectEmployeeByEmailAndPassword(email, password);
 	}
+	
+	public String getNameById(int id) {
+		return employeeDAO.selectNameById(id);
+	}
 }

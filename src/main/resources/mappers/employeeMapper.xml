@@ -31,4 +31,12 @@
 			`email` = #{email}
 			AND `password` = #{password}
 	</select>
+	<select id="selectNameById" parameterType="int" resultType="String">
+		SELECT
+			`name`
+		FROM
+			`employee`
+		WHERE
+			`id` = #{id}
+	</select>
 </mapper>

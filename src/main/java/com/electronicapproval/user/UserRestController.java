@@ -34,6 +34,7 @@ public class UserRestController {
 			HttpSession session = request.getSession();
 			
 			session.setAttribute("employeeId", employee.getId());
+			session.setAttribute("authorityPost", employee.getAuthorityPost());
 			result.put("result", "success");
 		} else {
 			result.put("result", "fail");

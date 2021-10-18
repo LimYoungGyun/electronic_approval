@@ -16,7 +16,7 @@
 				<textarea id="content" name="content" class="form-control" rows="15" required></textarea>
 				
 				<label for="file">파일첨부</label>
-				<input type="file" id="file" name="file" class="form-control">
+				<input type="file" id="file" name="file" class="form-control" multiple>
 			</div>
 			<div class="buttonLine inputpage">
 				<button type="submit" class="postRegistBtn btn btn-success">등록</button>
@@ -37,19 +37,32 @@
 		// 공지사항 등록
 		$('#postInsertForm').submit(function(e) {
 			e.preventDefault();
-			
+
 			let title = $('#title').val();
 			let content = $('#content').val();
 			
+// 			let files = e.target.files;
+			let files = $('#file')[0].files;
+			console.log('file ==> ' + files);
+			let filesArr = Array.prototype.slice.call(files);
+			console.log('filesArr ==> ' + filesArr);
 // 			console.log(title);
 // 			console.log(content);
+
+
+			let formData = new FormData(); // 자바스크립트에서 제공해주는 객체
+			formData.append('title', title);
+			formData.append('content', content);
+			formData.append('filesArr', filesArr);
+			console.log(formData);
+			
 			$.ajax({
 				type: 'POST'
 				, url: '/post/insert'
-				, data: {
-					'title':title
-					, 'content':content
-				}
+				, data: formData
+				, enctype : 'multipart/form-data' // 파일 업로드할때 필수태그 - 파일 업로드 필수 설정
+				, processData : false // 파일 업로드할때 필수태그 - 파일 업로드 필수 설정
+				, contentType : false // 파일 업로드할때 필수태그 - 파일 업로드 필수 설정
 				, success:function(data) {
 					if (data.result == 'success') {
 						alert('공지사항 등록 완료');

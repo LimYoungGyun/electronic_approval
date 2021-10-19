@@ -11,7 +11,6 @@ public class Post {
 	private int employeeId;
 	private String title;
 	private String content;
-	private String filePath;
 	private Date createdAt;
 	private Date updatedAt;
 }

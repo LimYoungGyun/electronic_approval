@@ -2,11 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!-- <link rel="stylesheet" href="/static/css/common.css"> -->
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%-- <link rel="stylesheet" href="/static/css/common.css"> --%>
 <link rel="stylesheet" href="/static/css/post.css">
 <div class="page-content-size">
 	<div class="contents box">
-<!-- 		<div class="title">공지사항</div> -->
+		<%-- <div class="title">공지사항</div> --%>
 		<div class="content">
 			<table class="table table-bordered detailTable">
 				<tr>
@@ -15,16 +16,25 @@
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td>나중에 값 불러와야함</td>
+					<td>${postName }</td>
 					<th>작성일</th>
 					<td><fmt:formatDate value="${post.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss" var="updatedAt"/>${updatedAt}</td>
 				</tr>
 				<tr>
 					<th>첨부파일</th>
-					<td colspan="4">나중에 기능 추가 후 데이터 가져와야함.</td>
+					<td colspan="4">
+					<c:if test="${not empty postFiles}">
+						<c:forEach items="${postFiles}" var="file">
+							<a href="/download?filePath=${file.filePath}">
+								<c:set var="filePrint" value="${fn:split(file.filePath, '/')}" />
+								${filePrint[fn:length(filePrint)-1]} <br>
+							</a>
+						</c:forEach>
+					</c:if>
+					</td>
 				</tr>
 			</table>
-			<textarea id="content" name="content" class="form-control" rows="15" required>${post.content}</textarea>
+			<textarea id="content" name="content" class="form-control" rows="15" disabled>${post.content}</textarea>
 		</div>
 			<div class="buttonLine inputpage">
 				<button type="button" class="postListBtn btn btn-secondary">목록으로</button>
@@ -50,7 +60,7 @@
 		
 		// 공지사항 수정 페이지로 이동.
 		$('.postDetailBtn').on('click', function() {
-			alert('공지사항 수정 페이지로 이동');
+			location.href='/post/post_update_view?postId='+ ${post.id};
 		});
 	});
 </script>

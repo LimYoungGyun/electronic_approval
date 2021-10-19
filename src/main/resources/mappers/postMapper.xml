@@ -8,7 +8,6 @@
 			, `employeeId`
 			, `title`
 			, `content`
-			, `filePath`
 			, `createdAt`
 			, `updatedAt`
 		FROM
@@ -22,7 +21,6 @@
 			, `employeeId`
 			, `title`
 			, `content`
-			, `filePath`
 			, `createdAt`
 			, `updatedAt`
 		FROM
@@ -31,13 +29,12 @@
 			`id` = #{id}
 	</select>
 	
-	<insert id="insertPost" parameterType="map">
+	<insert id="insertPost" parameterType="com.electronicapproval.post.model.Post" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `post`
 		(
 			`employeeId`
 			, `title`
 			, `content`
-<!-- 			, `filePath` -->
 			, `createdAt`
 			, `updatedAt`
 		)
@@ -46,7 +43,6 @@
 			#{employeeId}
 			, #{title}
 			, #{content}
-<!-- 			, #{filePath} -->
 			, NOW()
 			, NOW()
 		)

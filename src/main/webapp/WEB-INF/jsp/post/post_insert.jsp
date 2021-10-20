@@ -43,17 +43,15 @@
 			
 // 			let files = e.target.files;
 			let files = $('#file')[0].files;
-			console.log('file ==> ' + files);
 			let filesArr = Array.prototype.slice.call(files);
-			console.log('filesArr ==> ' + filesArr);
-// 			console.log(title);
-// 			console.log(content);
-
-
+			
 			let formData = new FormData(); // 자바스크립트에서 제공해주는 객체
 			formData.append('title', title);
 			formData.append('content', content);
-			formData.append('filesArr', filesArr);
+			
+			for (let i = 0; i < filesArr.length; i++) {
+				formData.append('filesArr', filesArr[i]);
+			}
 			console.log(formData);
 			
 			$.ajax({
@@ -73,7 +71,6 @@
 					alert('공지사항 등록 에러발생 : ' + e);
 				}
 			});
-			
 		});
 	});
-</script>
+</script>

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.electronicapproval.employee.bo.EmployeeBO;
+import com.electronicapproval.file.bo.FileBO;
+import com.electronicapproval.file.model.File;
 import com.electronicapproval.post.bo.PostBO;
 import com.electronicapproval.post.model.Post;
 
@@ -22,7 +24,15 @@ public class PostController {
 	
 	@Autowired
 	private EmployeeBO employeeBO;
+	
+	@Autowired
+	private FileBO fileBO;
 
+	/**
+	 * 공지사항 리스트 페이지로 이동.
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/post_list_view")
 	public String postListView(Model model) {
 		
@@ -40,6 +50,11 @@ public class PostController {
 		return "template/layout";
 	}
 	
+	/**
+	 * 공지사항 등록 페이지로 이동.
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/post_insert_view")
 	public String postInsertView(Model model) {
 		
@@ -48,15 +63,54 @@ public class PostController {
 		return "template/layout";
 	}
 	
-	@RequestMapping("post_detail_view")
+	/**
+	 * 공지사항 상세 페이지로 이동.
+	 * @param postId
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/post_detail_view")
 	public String postInsertView(
 			@RequestParam("postId") int postId
 			, Model model) {
 		
 		Post post = postBO.getPostByPostId(postId);
 		
+		int id = post.getEmployeeId();
+		String name = employeeBO.getNameById(id);
+
+		List<File> files = fileBO.getFileListById(postId);
+		
+		model.addAttribute("postFiles", files);
+		model.addAttribute("postName", name);
 		model.addAttribute("post", post);
 		model.addAttribute("viewName", "post/post_detail");
+		
+		return "template/layout";
+	}
+	
+	/**
+	 * 공지사항 수정 페이지로 이동.
+	 * @param postId
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/post_update_view")
+	public String postUpdateView(
+			@RequestParam("postId") int postId
+			, Model model) {
+		
+		Post post = postBO.getPostByPostId(postId);
+		
+		int id = post.getEmployeeId();
+		String name = employeeBO.getNameById(id);
+		
+		List<File> files = fileBO.getFileListById(postId);
+		
+		model.addAttribute("postFiles", files);
+		model.addAttribute("postName", name);
+		model.addAttribute("post", post);
+		model.addAttribute("viewName", "post/post_update");
 		
 		return "template/layout";
 	}

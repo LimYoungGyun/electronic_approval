@@ -14,5 +14,7 @@ public interface FileDAO {
 			@Param("postId") int postId
 			, @Param("filePath") String filePath);
 	
-	public List<File> selectFileList(int postId);
+	public List<File> selectFileListById(int postId);
+	
+	public void deleteFileById(int postId);
 }

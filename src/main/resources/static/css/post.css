@@ -28,6 +28,30 @@
 	background: #fff;
 	resize: none;
 }
+.page-content-size .contents .content .fileUpdate {
+	width: 70%;
+	margin-bottom: 20px;
+}
+.page-content-size .contents .content .fileUpdate .fileSelect {
+	background: #EFEFEF;
+	margin: 0 4px 0 0;
+	padding: 1px 6px;
+	border-radius: 2px;
+	border: 1px solid #000;
+	width: 84.27px;
+	height: 30px
+}
+.page-content-size .contents .content .fileDelete {
+	color: #fff;
+	background: #DC3545;
+	margin: 0 4px 0 0;
+	padding: 1px 6px;
+	border-radius: 2px;
+	border: 1px solid #000;
+	width: 84.27px;
+	height: 30px;
+	float: right;
+}
 
 /* .page-content-size .contents .content .detailTable th{ */
 /* 	background: #808080; */
@@ -40,9 +64,14 @@
 .buttonLine.inputpage {
 	width: 70%;
 }
-.buttonLine .postRegistBtn,
-.buttonLine .postDetailBtn,
-.buttonLine .postRegistViewBtn {
+/* .buttonLine .postRegistBtn, */
+/* .buttonLine .postDetailBtn, */
+/* .buttonLine .postRegistViewBtn { */
+/* 	margin-left: 20px; */
+/* 	width: 90px; */
+/* } */
+
+.buttonLine button {
 	margin-left: 20px;
 	width: 90px;
 }

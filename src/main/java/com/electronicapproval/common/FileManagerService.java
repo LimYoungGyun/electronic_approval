@@ -40,4 +40,20 @@ public class FileManagerService {
 		
 		return "/files/" + directoryName + file.getOriginalFilename();
 	}
+	
+	public void deleteFile(String imagePath) throws IOException {
+		Path path = Paths.get(FILE_UPLOAD_PATH + imagePath.replace("/images/", ""));
+		
+		if (Files.exists(path)) {
+			// 파일이 존재하면 삭제한다.
+			Files.delete(path);
+		}
+		
+		// 디렉토리 삭제
+		path = path.getParent();
+		if (Files.exists(path)) {
+			// 디렉토리가 존재하면 삭제한다.
+			Files.delete(path);
+		}
+	}
 }

@@ -18,7 +18,12 @@ public class FileBO {
 		return fileDAO.insertFiles(postId, filePath);
 	}
 	
-	public List<File> getFileList(int postId) {
-		return fileDAO.selectFileList(postId);
+	public List<File> getFileListById(int postId) {
+		return fileDAO.selectFileListById(postId);
 	}
+	
+	public void deleteFileById(int postId) {
+		fileDAO.deleteFileById(postId);
+	}
+	
 }

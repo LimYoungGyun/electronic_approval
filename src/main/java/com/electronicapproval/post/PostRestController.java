@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +46,38 @@ public class PostRestController {
 		post.setEmployeeId(employeeId);
 		
 		int cnt = postBO.addPost(post, files);
+		
+		if (cnt >= 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 공지사항 수정 API.
+	 * @param post
+	 * @param files
+	 * @param filePath
+	 * @param request
+	 * @return
+	 */
+	@PutMapping("/update")
+	public Map<String, Object> postUpdate(
+			@ModelAttribute Post post 
+			, @RequestParam(value = "filesArr", required = false) List<MultipartFile> files
+			, @RequestParam(value = "filePath", required = false) Boolean filePath
+			, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		int employeeId = (int) session.getAttribute("employeeId");
+		
+		Map<String, Object> result = new HashMap<>();
+		post.setEmployeeId(employeeId);
+		
+		int cnt = postBO.updatePost(post, files, filePath);
 		
 		if (cnt >= 1) {
 			result.put("result", "success");

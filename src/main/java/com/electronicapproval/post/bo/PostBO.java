@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.electronicapproval.common.FileManagerService;
 import com.electronicapproval.file.bo.FileBO;
+import com.electronicapproval.file.model.File;
 import com.electronicapproval.post.dao.PostDAO;
 import com.electronicapproval.post.model.Post;
 
@@ -70,6 +71,82 @@ public class PostBO {
 		if (postCnt >= 1) {
 			return postCnt;
 		}
+		return postCnt;
+	}
+	
+	@Transactional
+	public int updatePost(Post post, List<MultipartFile> files, Boolean filePath) {
+		int postCnt = 0;
+		if (!CollectionUtils.isEmpty(files)) {
+			
+			postCnt = postDAO.updatePost(post);
+			List<File> fileList = fileBO.getFileListById(post.getId());
+			
+			// 파일첨부내용이 있을떄
+			int fileCnt = 0;
+			String directoryName = null;
+			String path = "";
+			if (!CollectionUtils.isEmpty(fileList)) {
+				// 파일 삭제
+				try {
+					fileManagerService.deleteFile(fileList.get(0).getFilePath());
+					// DB 파일 삭제
+					fileBO.deleteFileById(post.getId());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				// 파일 등록
+				for (MultipartFile file : files) {
+					try {
+						path = fileManagerService.saveFile(post.getId(), file, directoryName);
+						directoryName = (path.substring(1, path.length()).split("/")[1]) + "/";
+					} catch (IOException e) {
+						path = null;
+					}
+					// file테이블에 넣기
+					fileCnt = fileBO.addFiles(post.getId(), path);
+					
+					if (fileCnt < 1) {
+						postCnt = 0;
+						break;
+					}
+				}
+			} else {
+				// 파일 등록
+				for (MultipartFile file : files) {
+					try {
+						path = fileManagerService.saveFile(post.getId(), file, directoryName);
+						directoryName = (path.substring(1, path.length()).split("/")[1]) + "/";
+					} catch (IOException e) {
+						path = null;
+					}
+					// file테이블에 넣기
+					fileCnt = fileBO.addFiles(post.getId(), path);
+					
+					if (fileCnt < 1) {
+						postCnt = 0;
+						break;
+					}
+				}
+			}
+		} else if (CollectionUtils.isEmpty(files) && filePath == false) {
+			postCnt = postDAO.updatePost(post);
+			List<File> fileList = fileBO.getFileListById(post.getId());
+			
+			if (!CollectionUtils.isEmpty(fileList)) {
+				// 파일 삭제
+				try {
+					fileManagerService.deleteFile(fileList.get(0).getFilePath());
+					// DB 파일 삭제
+					fileBO.deleteFileById(post.getId());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			postCnt = postDAO.updatePost(post);
+		}
+		
 		return postCnt;
 	}
 }

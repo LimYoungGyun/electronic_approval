@@ -47,4 +47,13 @@
 			, NOW()
 		)
 	</insert>
+	
+	<update id="updatePost" parameterType="com.electronicapproval.post.model.Post" useGeneratedKeys="true" keyProperty="id">
+		UPDATE `post`
+		SET
+			`title` = #{title}
+			, `content` = #{content}
+		WHERE
+			`id` = #{id}
+	</update>
 </mapper>

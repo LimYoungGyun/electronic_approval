@@ -15,7 +15,7 @@
 		)
 	</insert>
 	
-	<select id="selectFileList" parameterType="int" resultType="com.electronicapproval.file.model.File">
+	<select id="selectFileListById" parameterType="int" resultType="com.electronicapproval.file.model.File">
 		SELECT
 			`id`
 			, `postId`
@@ -25,4 +25,12 @@
 		WHERE
 			`postId` = #{postId}
 	</select>
+	
+	<delete id="deleteFileById" parameterType="int">
+		DELETE
+		FROM
+			`file`
+		WHERE
+			`postId` = #{postId}
+	</delete>
 </mapper>

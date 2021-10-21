@@ -282,9 +282,13 @@ nav .profile-details i {
 	display: flex;
 	justify-content: space-between;
 }
-
-.test {
+/* Custom */
+.postList {
 	width: 65%;
+}
+.postList a {
+	color: #333;
+	text-decoration: none;
 }
 /* left box */
 .home-content .main-content .contents {
@@ -306,7 +310,7 @@ nav .profile-details i {
 .main-content .box .title {
 	font-size: 24px;
 	font-weight: 500;
-	/* margin-bottom: 10px; */
+	margin-bottom: 10px;
 }
 
 .main-content .content li.topic {

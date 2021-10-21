@@ -24,8 +24,7 @@
 		<h1>Login</h1>
 		<form id="sign-form" action="/user/sign_in" method="POST">
 			<div class="txt_field">
-				<input type="text" id="email" class="email" autocomplete="off"
-					required> <span></span> <label>email</label>
+				<input type="text" id="email" class="email" autocomplete="off" required> <span></span> <label>email</label>
 			</div>
 			<div class="txt_field">
 				<input type="password" id="password" class="password"

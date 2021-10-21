@@ -53,6 +53,7 @@
 		SET
 			`title` = #{title}
 			, `content` = #{content}
+			, `updatedAt` = NOW()
 		WHERE
 			`id` = #{id}
 	</update>

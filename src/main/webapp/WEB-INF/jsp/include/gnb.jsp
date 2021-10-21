@@ -10,7 +10,7 @@
 		</a>
 	</li>
 	<li>
-		<a href="#">
+		<a href="/group/group_list_view" class="links_name_Group">
 			<i class='bx bx-user-pin'></i> <span class="links_name">Group</span>
 		</a>
 	</li>

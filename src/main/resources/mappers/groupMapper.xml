@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.electronicapproval.group.dao.GroupDAO">
+	<select id="selectGroupList" resultType="com.electronicapproval.group.model.Group">
+		SELECT
+			`id`
+			, `topId`
+			, `topLevel`
+			, `level`
+			, `topGroupName`
+			, `groupName`
+			, `content`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`group`
+<!-- 		ORDER BY `id` DESC -->
+	</select>
+
+	<select id="selectGroupById" parameterType="int" resultType="com.electronicapproval.group.model.Group">
+		SELECT
+			`id`
+			, `topId`
+			, `topLevel`
+			, `level`
+			, `topGroupName`
+			, `groupName`
+			, `content`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`group`
+		WHERE
+			`id` = #{id}
+	</select>
+	
+	<select id="selectTopGroupByLevelList" parameterType="int" resultType="com.electronicapproval.group.model.Group">
+		SELECT
+			`id`
+			, `topId`
+			, `topLevel`
+			, `level`
+			, `topGroupName`
+			, `groupName`
+			, `content`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`group`
+		WHERE
+			`topLevel` = #{level}
+	</select>
+	
+	<insert id="insertGroup" parameterType="com.electronicapproval.group.model.Group">
+		INSERT INTO `group`
+		(
+			`topId`
+			, `topLevel`
+			, `level`
+			, `topGroupName`
+			, `groupName`
+			, `content`
+			, `createdAt`
+			, `updatedAt`
+		)
+		VALUES
+		(
+			#{topId}
+			, #{topLevel}
+			, #{level}
+			, #{topGroupName}
+			, #{groupName}
+			, #{content}
+			, NOW()
+			, NOW()
+		)
+	</insert>
+	
+	<update id="updateGroup" parameterType="com.electronicapproval.group.model.Group">
+		UPDATE `group`
+		SET
+			`topId` = #{topId}
+			, `topLevel` = #{topLevel}
+			, `level` = #{level}
+			, `topGroupName` = #{topGroupName}
+			, `groupName` = #{groupName}
+			, `content` = #{content}
+			, `updatedAt` = NOW()
+		WHERE
+			`id` = #{id}
+	</update>
+</mapper>

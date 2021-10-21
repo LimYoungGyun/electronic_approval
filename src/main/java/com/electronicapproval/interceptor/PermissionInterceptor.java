@@ -27,7 +27,15 @@ public class PermissionInterceptor implements HandlerInterceptor {
 			response.sendRedirect("/home/home_list_view");
 			return false;
 		} else if (employeeId == null && uri.startsWith("/home")) {
-			// 만약 로그인이 안되어 있으면 + /post => user 쪽으로 보낸다.
+			// 만약 로그인이 안되어 있으면 + /home => sign_in_view 쪽으로 보낸다.
+			response.sendRedirect("/user/sign_in_view");
+			return false;
+		} else if (employeeId == null && uri.startsWith("/post")) {
+			// 만약 로그인이 안되어 있으면 + /post => sign_in_view 쪽으로 보낸다.
+			response.sendRedirect("/user/sign_in_view");
+			return false;
+		} else if (employeeId == null && uri.startsWith("/group")) {
+			// 만약 로그인이 안되어 있으면 + /group => sign_in_view 쪽으로 보낸다.
 			response.sendRedirect("/user/sign_in_view");
 			return false;
 		}

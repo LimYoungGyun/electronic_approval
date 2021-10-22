@@ -1,0 +1,90 @@
+@charset "UTF-8";
+.page-content-size {
+	width: 100%;
+}
+.page-content-size .contents .content {
+	display: block;
+}
+.page-content-size .contents .content .inputcontent {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	width: 70%;
+}
+.content .inputcontent .group-left {
+	width: 100%;
+}
+.content .inputcontent .group-right {
+	margin-left: 10px;
+	width: 100%;
+}
+.content .inputcontent .radioAreaGroup {
+	width: 100%;
+	margin: 0 0 20px;
+	border: 1px solid #ced4da;
+	border-radius: 0.25rem;
+}
+.content .inputcontent .radioAreaGroup .radioArea {
+	display: flex;
+	justify-content:space-between;
+	align-items: center;
+	padding: .375rem .75rem;
+	height: 43.5px;
+}
+.content .inputcontent .radioAreaGroup .radioArea input[type=radio],
+.content .inputcontent .radioAreaGroup .radioArea label {
+	width: 30%;
+	margin: 0 0 0;
+/* 	height: 50px; */
+}
+
+.content .inputcontent .radioAreaGroup .radioArea span {
+	width: 40%;
+}
+.page-content-size table {
+	margin-top: 20px;
+}
+.page-content-size .contents .content input,
+.page-content-size .contents .content select,
+.page-content-size .contents .content textarea {
+	width: 100%;
+	margin-bottom: 20px;
+	resize: none;
+}
+.page-content-size .contents .content .detailTable {
+	width: 70%;
+}
+.page-content-size .contents .content .detailTable th {
+	background: #f5f5f5;
+	width: 15%;
+}
+.page-content-size .contents .content .detailTable td {
+	width: 25%;
+}
+.page-content-size .contents .content textarea:disabled {
+	background: #fff;
+	resize: none;
+}
+
+/* .page-content-size .contents .content .detailTable th{ */
+/* 	background: #808080; */
+/* } */
+.buttonLine {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+}
+.buttonLine.inputpage {
+	width: 70%;
+}
+/* .buttonLine .postRegistBtn, */
+/* .buttonLine .postDetailBtn, */
+/* .buttonLine .postRegistViewBtn { */
+/* 	margin-left: 20px; */
+/* 	width: 90px; */
+/* } */
+
+.buttonLine button {
+	margin-left: 20px;
+	width: 90px;
+}

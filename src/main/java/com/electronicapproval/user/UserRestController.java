@@ -36,6 +36,8 @@ public class UserRestController {
 			session.setAttribute("employeeId", employee.getId());
 			session.setAttribute("authorityPost", employee.getAuthorityPost());
 			session.setAttribute("authorityGroup", employee.getAuthorityGroup());
+			session.setAttribute("authorityEmployee", employee.getAuthorityEmployee());
+			
 			
 			result.put("result", "success");
 		} else {

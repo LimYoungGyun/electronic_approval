@@ -15,7 +15,7 @@
 		</a>
 	</li>
 	<li>
-		<a href="#">
+		<a href="/employee/employee_list_view"  class="links_name_Employee">
 			<i class='bx bx-user-check'></i> <span class="links_name">Employee</span>
 		</a>
 	</li>

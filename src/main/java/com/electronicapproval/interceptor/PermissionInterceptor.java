@@ -38,6 +38,10 @@ public class PermissionInterceptor implements HandlerInterceptor {
 			// 만약 로그인이 안되어 있으면 + /group => sign_in_view 쪽으로 보낸다.
 			response.sendRedirect("/user/sign_in_view");
 			return false;
+		} else if (employeeId == null && uri.startsWith("/employee")) {
+			// 만약 로그인이 안되어 있으면 + /employee => sign_in_view 쪽으로 보낸다.
+			response.sendRedirect("/user/sign_in_view");
+			return false;
 		}
 				
 		return true;

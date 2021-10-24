@@ -4,6 +4,6 @@
 	<i class='bx bx-menu sidebarBtn'></i> <span class="dashboard"></span>
 </div>
 <div class="profile-details">
-	<img src="iu.PNG" alt=""> 
-	<span class="employee_name">Prem Shahi</span> <i class='bx bx-chevron-down'></i>
+	<img src="${profilePath}" alt=""> 
+	<span class="employee_name"> ${employeeName} <${employeePosition}></span> <i class='bx bx-chevron-down'></i>
 </div>

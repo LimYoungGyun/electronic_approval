@@ -6,7 +6,7 @@
 <script src="/static/js/common.js"></script>
 <div class="page-content-size">
 	<div class="contents box">
-		<form id="groupInsertForm" action="/group/insert" method="POST">
+		<form id="emploayInsertForm" action="/employee/employee_insert" method="POST">
 			<div class="content">
 				<div class="inputcontent">
 					<div class="group-left">
@@ -21,7 +21,7 @@
 				
 				<div class="inputcontent">
 					<div class="group-left">
-						<label for="email">이메일</label>
+						<label for="email">이메일 <span class="email-check small text-danger d-none">(이메일주소가 중복되었습니다.)</span></label>
 						<input type="email" id="email" name="email" class="form-control" autocomplete="off" required>
 					</div>
 						
@@ -34,7 +34,7 @@
 				<div class="inputcontent">
 					<div class="group-left">
 						<label for="">입사일</label>
-						<input type="text" id="dateHired" name="dateHired" class="form-control" placeholder="입사일을 선택해 주세요." required>
+						<input type="text" id="dateHired" name="dateHired" class="form-control" placeholder="입사일을 선택해 주세요." autocomplete="off" required>
 					</div>
 					<div class="group-right">
 						<label for="totAnnualLeave">총 연차 수</label>
@@ -50,6 +50,12 @@
 					<div class="group-right">
 						<label for="salary">월급</label>
 						<input type="text" id="salary" name="salary" class="form-control" value="0" autocomplete="off" disabled>
+					</div>
+				</div>
+				<div class="inputcontent">
+					<div class="group-left">
+						<label for="profile">사진</label>
+						<input type="file" id="profile" name="profile" class="form-control" accept=".gif, .jpg, .png, .jpeg" required>
 					</div>
 				</div>
 				
@@ -170,38 +176,75 @@
 			$('#salary').val(comma(salary));
 		});
 		
+		// 이미지 첨부 제한
+		$('#profile').on('change', function(e) {
+			let fileName = e.target.files[0].name;
+			let fileNameArr = fileName.split('.');
+			if (fileNameArr[fileNameArr.length - 1].toUpperCase() != 'PNG'
+				&& fileNameArr[fileNameArr.length - 1].toUpperCase() != 'GIF'
+				&& fileNameArr[fileNameArr.length - 1].toUpperCase() != 'JPG'
+				&& fileNameArr[fileNameArr.length - 1].toUpperCase() != 'JPEG') {
+				alert('이미지 파일만 업로드 할 수 있습니다.');
+				$(this).val('');
+				return;
+			}
+		});
+		
 		// 그룹 등록
-// 		$('#employeeRegistBtn').submit(function(e) {
-// 			e.preventDefault();
+		$('#emploayInsertForm').submit(function(e) {
+			e.preventDefault();
 			
-			// 주민등록번호 길이 확인
-			// 주민등록번호, 연봉, 월급 특수문자 제거하기. (참조한 js파일에 들어있음.)
-			// 이메일주소 .trim() 사용해서 가져오기
+			let url = $(this).attr('action');
 			
+			if (unapostrophe($('#residentNumber').val()).length < 13) {
+				alert('주민등록번호를 확인해주세요.');
+				return;
+			}
 			
+			let formData = new FormData();
+// 			let test = $('#emploayInsertForm').serialize();
+// 			formData.append('name', test);
+			formData.append('name', $('#name').val());
+			formData.append('residentNumber', unapostrophe($('#residentNumber').val()));
+			formData.append('email', $('#email').val().trim());
+			formData.append('password', $('#password').val());
+			formData.append('dateHired', $('#dateHired').val());
+			formData.append('totAnnualLeave', $('#totAnnualLeave').val());
+			formData.append('annualIncome', uncomma($('#annualIncome').val()));
+			formData.append('salary', uncomma($('#salary').val()));
+			formData.append('file', $('#profile')[0].files[0]);
+			formData.append('groupId', $('#groupId').val());
+			formData.append('positionId', $('#positionId').val());
+			formData.append('officialId', $('#officialId').val());
+			formData.append('authorityPost', $('input:radio[name=authorityPost]:checked').val());
+			formData.append('authorityGroup', $('input:radio[name=authorityGroup]:checked').val());
+			formData.append('authorityEmployee', $('input:radio[name=authorityEmployee]:checked').val());
+			formData.append('authorityCommute', $('input:radio[name=authorityCommute]:checked').val());
+			formData.append('authorityForm', $('input:radio[name=authorityForm]:checked').val());
 			
-// 			let groupName = $('#groupName').val();
-// 			let topLevel = $('#topLevel').val();
-// 			let content = $('#content').val();
-			
-// 			$.ajax({
-// 				type: 'POST'
-// 				, url: '/group/insert'
-// 				, data: {
-// 					'groupName':groupName
-// 					, 'topLevelId':topLevel
-// 					, 'content':content
-// 				}
-// 				, success:function(data) {
-// 					if (data.result == 'success') {
-// 						alert('그룹 등록 완료');
-// 						location.href='/group/group_list_view';
-// 					}
-// 				}
-// 				, error:function(e) {
-// 					alert('그룹 등록 에러발생 : ' + e);
-// 				}
-// 			});
-// 		});
+			$.ajax({
+				type: 'POST'
+				, url: '/employee/employee_insert'
+				, data: formData
+				, enctype : 'multipart/form-data'
+				, processData : false
+				, contentType : false
+				, success:function(data) {
+					if (data.result == 'success') {
+						alert('직원 등록 완료');
+						location.href='/employee/employee_list_view';
+					}
+					if (data.result == 'Emailoverlap') {
+						alert('동일한 이메일이 존재합니다. 이메일을 변경해주세요');
+						$('.email-check').removeClass('d-none');
+						$('#email').focus();
+					}
+					
+				}
+				, error:function(e) {
+					alert('직원 등록 에러발생 : ' + e);
+				}
+			});
+		});
 	});
 </script>

@@ -18,6 +18,7 @@
 			, `officialId`
 			, `annualIncome`
 			, `salary`
+			, `profilePath`
 			, `authorityPost`
 			, `authorityGroup`
 			, `authorityEmployee`
@@ -44,6 +45,7 @@
 			, `officialId`
 			, `annualIncome`
 			, `salary`
+			, `profilePath`
 			, `authorityPost`
 			, `authorityGroup`
 			, `authorityEmployee`
@@ -65,4 +67,54 @@
 		WHERE
 			`id` = #{id}
 	</select>
+	<insert id="insertEmployeeInsert" parameterType="com.electronicapproval.employee.model.Employee">
+		INSERT INTO `employee`
+		(
+			`name`
+			, `email`
+			, `password`
+			, `residentNumber`
+			, `dateHired`
+			, `totAnnualLeave`
+<!-- 			, `useAnnualLeave` -->
+<!-- 			, `remainAnnualLeave` -->
+			, `groupId`
+			, `positionId`
+			, `officialId`
+			, `annualIncome`
+			, `salary`
+			, `profilePath`
+			, `authorityPost`
+			, `authorityGroup`
+			, `authorityEmployee`
+			, `authorityCommute`
+			, `authorityForm`
+			, `createdAt`
+			, `updatedAt`
+		)
+		VALUES
+		(
+			#{name}
+			, #{email}
+			, #{password}
+			, #{residentNumber}
+			, #{dateHired}
+			, #{totAnnualLeave}
+<!-- 			, #{useAnnualLeave} -->
+<!-- 			, #{remainAnnualLeave} -->
+			, #{groupId}
+			, #{positionId}
+			, #{officialId}
+			, #{annualIncome}
+			, #{salary}
+			, #{profilePath}
+			, #{authorityPost}
+			, #{authorityGroup}
+			, #{authorityEmployee}
+			, #{authorityCommute}
+			, #{authorityForm}
+			, NOW()
+			, NOW()
+		)
+	</insert>
 </mapper>

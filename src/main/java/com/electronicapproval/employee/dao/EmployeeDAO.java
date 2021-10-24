@@ -17,4 +17,6 @@ public interface EmployeeDAO {
 			, @Param("password") String password);
 	
 	public String selectNameById(int id);
+	
+	public int insertEmployeeInsert(Employee employee);
 }

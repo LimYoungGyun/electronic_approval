@@ -32,11 +32,10 @@
 <div class="profile_content">
 	<div class="profile">
 		<div class="profile_details">
-			<img src="iu.PNG" alt="">
-<!-- organization -->
+			<img src="${profilePath}" alt="">
 			<div class="name_organization">
-				<div class="name">Lim Young Gyun</div>
-				<div class="organization">선임 팀원</div>
+				<div class="name">${employeeName}</div>
+				<div class="organization"><${employeePosition}> ${employeeGroup}</div>
 			</div>
 		</div>
 		<a href="/user/sign_out"><i class='bx bx-log-out' id="log_out"></i></a>

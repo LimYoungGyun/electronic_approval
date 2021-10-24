@@ -1,11 +1,14 @@
 package com.electronicapproval.employee.bo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.electronicapproval.common.FileManagerService;
 import com.electronicapproval.employee.dao.EmployeeDAO;
 import com.electronicapproval.employee.model.Employee;
 import com.electronicapproval.employee.model.EmployeeInfoView;
@@ -30,6 +33,9 @@ public class EmployeeBO {
 	
 	@Autowired
 	private OfficialBO officialBO;
+	
+	@Autowired
+	private FileManagerService fileManagerService;
 	
 	public List<Employee> getEmployeeList() {
 		return employeeDAO.selectEmployeeList();
@@ -57,8 +63,15 @@ public class EmployeeBO {
 			employeeInfoView.setPosition(position);
 			
 			// 직책
-			Official official = officialBO.getOfficialById(employee.getOfficialId());
-			employeeInfoView.setOfficial(official);
+			Official official = new Official();
+			if (employee.getOfficialId() == null) {
+				official.setId(0);
+				official.setName("-");
+				employeeInfoView.setOfficial(official);
+			} else {
+				official = officialBO.getOfficialById(employee.getOfficialId());
+				employeeInfoView.setOfficial(official);
+			}
 			
 			employeeInfoViewList.add(employeeInfoView);
 		}
@@ -72,5 +85,25 @@ public class EmployeeBO {
 	
 	public String getNameById(int id) {
 		return employeeDAO.selectNameById(id);
+	}
+	
+	public int addEmployeeInsert(Employee employee, MultipartFile file) {
+		
+		String employeeEmail = employee.getEmail();
+		
+		if (employeeEmail.contains("@")) {
+			String[] employeeIdArr = employeeEmail.split("@");
+			employeeEmail = employeeIdArr[0];
+		}
+		
+		String imagePath = null;
+		try {
+			imagePath = fileManagerService.saveImageFile(employeeEmail, file);
+			employee.setProfilePath(imagePath);
+		} catch (IOException e) {
+			imagePath = null;
+		}
+		
+		return employeeDAO.insertEmployeeInsert(employee);
 	}
 }

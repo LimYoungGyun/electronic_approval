@@ -25,16 +25,14 @@
 					<c:if test="${not empty postFiles}">
 						<c:forEach items="${postFiles}" var="file">
 							<c:set var="filePrint" value="${fn:split(file.filePath, '/')}" />
-							${filePrint[fn:length(filePrint)-1]} <br>
+							<span class="fileText">${filePrint[fn:length(filePrint)-1]} </span><br>
 						</c:forEach>
 					</c:if>
 				</div>
 				</div>
 			</div>
 			<div class="buttonLine inputpage">
-				<c:if test="${not empty postFiles}">
-					<button type="button" class="postDeleteBtn btn btn-danger"> 파일 삭제</button>
-				</c:if>
+				<button type="button" class="postDeleteBtn btn btn-danger"> 파일 삭제</button>
 				<button type="submit" class="postRegistBtn btn btn-success" >수정</button>
 			</div>
 		</form>
@@ -50,11 +48,15 @@
 		$('.nav-links a').removeClass('active');
 		$('.links_name_Dashboard').addClass('active');
 		
+		// 첨부파일 없을시 '파일 삭제'버튼 숨기기
+		if ($('#file').val() == '' && $('.fileText').text() == '') {
+			$('.postDeleteBtn').addClass('d-none');
+		}
+		
 		// 첨부파일 클릭 이벤트
 		$('.fileUpdate').on('click', function() {
 			$('#file').click();
 		});
-		
 		// 첨부파일 change시 이벤트
 		$('#file').on('change', function() {
 			$(this).removeClass('d-none');

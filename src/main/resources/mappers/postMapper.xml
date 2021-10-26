@@ -14,6 +14,19 @@
 			`post`
 		ORDER BY `id` DESC
 	</select>
+	<select id="selectPostListLimit5" resultType="com.electronicapproval.post.model.Post">
+		SELECT
+			`id`
+			, `employeeId`
+			, `title`
+			, `content`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`post`
+		ORDER BY `id` DESC
+		Limit 5
+	</select>
 	
 	<select id="selectPostByPostId" parameterType="int" resultType="com.electronicapproval.post.model.Post">
 		SELECT

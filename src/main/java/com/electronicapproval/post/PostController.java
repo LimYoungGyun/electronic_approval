@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.electronicapproval.employee.bo.EmployeeBO;
+import com.electronicapproval.employee.model.Employee;
 import com.electronicapproval.file.bo.FileBO;
 import com.electronicapproval.file.model.File;
 import com.electronicapproval.post.bo.PostBO;
@@ -37,13 +38,13 @@ public class PostController {
 	public String postListView(Model model) {
 		
 		List<Post> post = postBO.getPostList();
-		List<String> emoployeeName = new ArrayList<>();
+		List<String> emoployeeList = new ArrayList<>();
 		for (int i = 0; i < post.size(); i++) {
 			int id = post.get(i).getEmployeeId();
-			String name = employeeBO.getNameById(id);
-			emoployeeName.add(name);
+			Employee employee = employeeBO.getEmployeeById(id);
+			emoployeeList.add(employee.getName());
 		}
-		model.addAttribute("postNameList", emoployeeName);
+		model.addAttribute("emoployeeList", emoployeeList);
 		model.addAttribute("postList", post);
 		model.addAttribute("viewName", "post/post_list");
 		
@@ -77,7 +78,8 @@ public class PostController {
 		Post post = postBO.getPostByPostId(postId);
 		
 		int id = post.getEmployeeId();
-		String name = employeeBO.getNameById(id);
+		Employee employee = employeeBO.getEmployeeById(id);
+		String name = employee.getName();
 
 		List<File> files = fileBO.getFileListById(postId);
 		
@@ -103,7 +105,8 @@ public class PostController {
 		Post post = postBO.getPostByPostId(postId);
 		
 		int id = post.getEmployeeId();
-		String name = employeeBO.getNameById(id);
+		Employee employee = employeeBO.getEmployeeById(id);
+		String name = employee.getName();
 		
 		List<File> files = fileBO.getFileListById(postId);
 		

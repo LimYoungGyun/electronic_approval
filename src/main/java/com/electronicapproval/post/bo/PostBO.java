@@ -31,6 +31,10 @@ public class PostBO {
 		return postDAO.selectPostList();
 	}
 	
+	public List<Post> getPostListLimit5() {
+		return postDAO.selectPostListLimit5();
+	}
+	
 	public Post getPostByPostId(int postId) {
 		return postDAO.selectPostByPostId(postId);
 	}

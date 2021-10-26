@@ -11,6 +11,8 @@ public interface PostDAO {
 
 	public List<Post> selectPostList();
 	
+	public List<Post> selectPostListLimit5();
+	
 	public Post selectPostByPostId(int postId);
 	
 	public int insertPost(Post post);

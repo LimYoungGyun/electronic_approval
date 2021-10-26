@@ -18,11 +18,11 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${postList}" var="post" varStatus="status" begin="0" end="4" step="1">
+					<c:forEach items="${postList}" var="post" varStatus="status">
 						<tr>
 							<td>${postList.size() - (status.count - 1)}</td>
 							<td class="text-left">${post.title}</td>
-							<td>${postNameList.get(status.index)}</td>
+							<td>${emoployeeList.get(status.index)}</td>
 							<td><fmt:formatDate value="${post.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss" var="updatedAt"/>${updatedAt}</td>
 							<td class="d-none">${post.id}</td>
 						</tr>

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.electronicapproval.employee.bo.EmployeeBO;
+import com.electronicapproval.employee.model.Employee;
 import com.electronicapproval.post.bo.PostBO;
 import com.electronicapproval.post.model.Post;
 
@@ -25,14 +26,14 @@ public class HomeController {
 	@RequestMapping("/home_list_view")
 	public String homeListView(Model model) {
 		
-		List<Post> post = postBO.getPostList();
-		List<String> emoployeeName = new ArrayList<>();
+		List<Post> post = postBO.getPostListLimit5();
+		List<String> emoployeeList = new ArrayList<>();
 		for (int i = 0; i < post.size(); i++) {
 			int id = post.get(i).getEmployeeId();
-			String name = employeeBO.getNameById(id);
-			emoployeeName.add(name);
+			Employee employee = employeeBO.getEmployeeById(id);
+			emoployeeList.add(employee.getName());
 		}
-		model.addAttribute("postNameList", emoployeeName);
+		model.addAttribute("emoployeeList", emoployeeList);
 		model.addAttribute("postList", post);
 		
 		model.addAttribute("viewName", "home/home_list");

@@ -68,4 +68,8 @@ public class GroupBO {
 		
 		return groupDAO.updateGroup(group);
 	}
+	
+	public int deleteGroup(int id) {
+		return groupDAO.deleteGroup(id);
+	}
 }

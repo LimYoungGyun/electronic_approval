@@ -19,6 +19,11 @@ public class GroupController {
 	@Autowired
 	private GroupBO groupBO;
 	
+	/**
+	 * 그룹 관리 리스트 화면으로 이동.
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/group_list_view")
 	public String postListView(Model model) {
 		
@@ -30,6 +35,11 @@ public class GroupController {
 		return "template/layout";
 	}
 	
+	/**
+	 * 그룹 관리 등록 화면으로 이동.
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/group_insert_view")
 	public String groupInsertView(Model model) {
 		
@@ -40,7 +50,13 @@ public class GroupController {
 		
 		return "template/layout";
 	}
-
+	
+	/**
+	 * 그룹 관리 상세 화면으로 이동.
+	 * @param groupId
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/group_detail_view")
 	public String groupDetailView(
 			@RequestParam("groupId") int groupId
@@ -54,6 +70,12 @@ public class GroupController {
 		return "template/layout";
 	}
 	
+	/**
+	 * 그룹 관리 수정 화면으로 이동.
+	 * @param groupId
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/group_update_view")
 	public String groupUpdateView(
 			@RequestParam("groupId") int groupId

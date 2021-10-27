@@ -18,4 +18,6 @@ public interface GroupDAO {
 	public int insertGroup(Group group);
 
 	public int updateGroup(Group group);
+	
+	public int deleteGroup(int id);
 }

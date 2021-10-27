@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +46,14 @@ public class GroupRestController {
 		return result;
 	}
 	
+	/**
+	 * 그룹 관리 수정 API.
+	 * @param groupId
+	 * @param groupName
+	 * @param topLevelId
+	 * @param content
+	 * @return
+	 */
 	@PutMapping("/update")
 	public Map<String, Object> update(
 			@RequestParam("groupId") int groupId
@@ -67,5 +76,24 @@ public class GroupRestController {
 		return result;
 	}
 	
-	
+	/**
+	 * 그룹 관리 삭제 API.
+	 * @param id
+	 * @return
+	 */
+	@DeleteMapping("/delete")
+	public Map<String, Object> delete(
+			@RequestParam("id") int id) {
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		int cnt = groupBO.deleteGroup(id);
+		if (cnt >= 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+	}
 }

@@ -31,6 +31,7 @@
 		</div>
 		<c:if test="${authorityGroup == 'WR'}">
 			<div class="buttonLine inputpage">
+				<button type="button" class="groupDeleteBtn btn btn-danger">삭제</button>
 				<button type="button" class="groupUpdateBtn btn btn-success">수정</button>
 			</div>
 		</c:if>
@@ -53,6 +54,29 @@
 		
 		// 선택된 select값
 		$('#topLevel').val(${group.topId}).prop('selected');
+		
+		// 게시물 삭제
+		$('.groupDeleteBtn').on('click', function() {
+			let check = confirm('해당 게시물을 삭제하시겠습니까??');
+			if (check) {
+				$.ajax({
+					type: 'DELETE'
+					, url: '/group/delete'
+					, data: {
+						'id' : ${group.id}
+					}
+					, success:function(data) {
+						if (data.result == 'success') {
+							alert('그룹 삭제 완료');
+							location.href='/group/group_list_view';
+						}
+					}
+					, error:function(e) {
+						alert('그룹 삭제 에러발생 : ' + e);
+					}
+				});
+			}
+		});
 		
 		// 그룹관리 수정
 		$('.groupUpdateBtn').on('click', function() {

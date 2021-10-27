@@ -2,16 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <link rel="stylesheet" href="/static/css/employee.css">
 <script src="/static/js/common.js"></script>
 <div class="page-content-size">
 	<div class="contents box">
-		<form id="emploayInsertForm" action="/employee/employee_insert" method="POST">
+		<form id="emploayUpdateForm" action="/employee/employee_update">
 			<div class="content">
 				<div class="inputcontent">
 					<div class="group-left">
 						<label for="name">이름</label>
-						<input type="text" id="name" name="name" class="form-control" autocomplete="off" autofocus required>
+						<input type="text" id="name" name="name" class="form-control" value="${employeeInfoView.employee.name}" autocomplete="off" required>
 					</div>
 					<div class="group-right">
 						<label for="residentNumber">주민등록번호</label>
@@ -22,23 +23,34 @@
 				<div class="inputcontent">
 					<div class="group-left">
 						<label for="email">이메일 <span class="email-check small text-danger d-none">(이메일주소가 중복되었습니다.)</span></label>
-						<input type="email" id="email" name="email" class="form-control" autocomplete="off" required>
+						<input type="email" id="email" name="email" class="form-control" value="${employeeInfoView.employee.email}" autocomplete="off" required>
 					</div>
 						
 					<div class="group-right">
-						<label for="password">비밀번호 <span class="small text-danger">(초기 비밀번호는 "1234"입니다.)</span></label>
-						<input type="password" id="password" name="password" class="form-control" value="1234" autocomplete="off" disabled>
+						<label for="password">비밀번호 <span class="myPassword small text-danger d-none">(변경할 비밀번호를 입력하세요.)</span></label>
+						<input type="password" id="password" name="password" class="form-control" autocomplete="off" disabled>
 					</div>
 				</div>
 				
 				<div class="inputcontent">
 					<div class="group-left">
 						<label for="">입사일</label>
-						<input type="text" id="dateHired" name="dateHired" class="form-control" placeholder="입사일을 선택해 주세요." autocomplete="off" required>
+						<input type="text" id="dateHired" name="dateHired" class="form-control" placeholder="입사일을 선택해 주세요." value="${employeeInfoView.employee.dateHired}" autocomplete="off" required>
 					</div>
 					<div class="group-right">
 						<label for="totAnnualLeave">총 연차 수</label>
-						<input type="text" id="totAnnualLeave" name="totAnnualLeave" class="form-control" value="12" maxlength='2' autocomplete="off" required>
+						<input type="text" id="totAnnualLeave" name="totAnnualLeave" class="form-control" value="${employeeInfoView.employee.totAnnualLeave}" maxlength='2' autocomplete="off" required>
+					</div>
+				</div>
+				
+				<div class="inputcontent">
+					<div class="group-left">
+						<label for="useAnnualLeave">사용 연차 수</label>
+						<input type="text" id="useAnnualLeave" name="useAnnualLeave" class="form-control" value="${employeeInfoView.employee.useAnnualLeave}" maxlength='2' autocomplete="off">
+					</div>
+					<div class="group-right">
+						<label for="remainAnnualLeave">남은 연차 수</label>
+						<input type="text" id="remainAnnualLeave" name="remainAnnualLeave" class="form-control" value="${employeeInfoView.employee.remainAnnualLeave}" maxlength='2' autocomplete="off">
 					</div>
 				</div>
 				
@@ -52,13 +64,23 @@
 						<input type="text" id="salary" name="salary" class="form-control" value="0" autocomplete="off" disabled>
 					</div>
 				</div>
+				<c:if test="${authorityEmployee == 'WR'}">
 				<div class="inputcontent">
 					<div class="group-left">
 						<label for="profile">사진</label>
-						<input type="file" id="profile" name="profile" class="form-control" accept=".gif, .jpg, .png, .jpeg" required>
+						<input type="file" id="profile" name="profile" class="form-control d-none" accept=".gif, .jpg, .png, .jpeg" required>
+					
+						<div class="fileUpdate form-control">
+							<button type="button" class="fileSelect"> 파일 선택</button>
+							<c:if test="${not empty employeeInfoView.employee.profilePath}">
+								<c:set var="filePrint" value="${fn:split(employeeInfoView.employee.profilePath, '/')}" />
+								<span class="fileText">${filePrint[fn:length(filePrint)-1]} </span><br>
+							</c:if>
+						</div>
 					</div>
+					<button type="button" class="fileDeleteBtn btn btn-danger">파일 삭제</button>
+					
 				</div>
-				
 				<div class="inputcontent">
 					<div class="group-left">
 						<label for="groupId">부서</label>
@@ -116,12 +138,12 @@
 						</div>
 					</div>
 				</div>
-				
+				</c:if>
 			</div>
 			
-			<c:if test="${authorityEmployee == 'WR'}">
+			<c:if test="${authorityEmployee == 'WR' || employeeInfoView.employee.id == employeeId}">
 				<div class="buttonLine inputpage">
-					<button type="submit" class="employeeRegistBtn btn btn-success">등록</button>
+					<button type="submit" class="employeeUpdateBtn btn btn-success">수정</button>
 				</div>
 			</c:if>
 		</form>
@@ -152,6 +174,79 @@
 		$.datepicker._gotoToday = function(id) {
 			$(id).datepicker('setDate', new Date()).datepicker('hide').blur();
 		};
+		
+		// 데이터 불러오기
+		if (${employeeInfoView.employee.id == employeeId}) {
+			$('.myPassword').removeClass('d-none');
+			$('#password').prop('disabled', false);
+		}
+		$('#residentNumber').val(apostrophe(${employeeInfoView.employee.residentNumber}));
+		$('#annualIncome').val(comma(${employeeInfoView.employee.annualIncome}));
+		$('#salary').val(comma(${employeeInfoView.employee.salary}));
+		$('#groupId').val(comma(${employeeInfoView.employee.groupId}));
+		$('#positionId').val(${employeeInfoView.employee.positionId});
+		$('#officialId').val(${employeeInfoView.employee.officialId});
+		
+		if ('${employeeInfoView.employee.authorityPost}' == "R") {
+			$('#authorityPostR').prop('checked', true);
+		} else {
+			$('#authorityPostWR').prop('checked', true);
+		}
+		if ('${employeeInfoView.employee.authorityGroup}' == "R") {
+			$('#authorityGroupR').prop('checked', true);
+		} else {
+			$('#authorityGroupWR').prop('checked', true);
+		}
+		if ('${employeeInfoView.employee.authorityEmployee}' == "R") {
+			$('#authorityEmployeeR').prop('checked', true);
+		} else {
+			$('#authorityEmployeeWR').prop('checked', true);
+		}
+		if ('${employeeInfoView.employee.authorityCommute}' == "R") {
+			$('#authorityCommuteR').prop('checked', true);
+		} else {
+			$('#authorityCommuteWR').prop('checked', true);
+		}
+		if ('${employeeInfoView.employee.authorityForm}' == "P") {
+			$('#authorityFormP').prop('checked', true);
+		} else {
+			$('#authorityFormA').prop('checked', true);
+		}
+		if ($('.fileUpdate').text() != '') {
+			$('#profile').prop('required', false);
+		}
+		
+		if (${authorityEmployee != 'WR'}) {
+			$('#name').prop('disabled', true);
+			$('#residentNumber').prop('disabled', true);
+			$('#dateHired').prop('disabled', true);
+			$('#totAnnualLeave').prop('disabled', true);
+			$('#useAnnualLeave').prop('disabled', true);
+			$('#remainAnnualLeave').prop('disabled', true);
+			$('#annualIncome').prop('disabled', true);
+		}
+		
+		// 첨부파일 클릭 이벤트
+		$('.fileUpdate').on('click', function() {
+			$('#profile').click();
+		});
+		// 첨부파일 change시 이벤트
+		$('#profile').on('change', function() {
+			$(this).removeClass('d-none');
+			$('.fileUpdate').text('');
+			$('.fileUpdate').addClass('d-none');
+			$('.fileDeleteBtn').removeClass('d-none');
+		});
+		
+		// 파일 삭제
+		$('.fileDeleteBtn').on('click', function() {
+			$('.fileUpdate').text('');
+			$('.fileUpdate').addClass('d-none');
+			$('#profile').val('');
+			$('#profile').removeClass('d-none');
+			$('#profile').prop('required', true);
+			$(this).addClass('d-none');
+		});
 		
 		// 이름 한글과 영어만 입력
 		$('#name').on('input', function() {
@@ -191,10 +286,8 @@
 		});
 		
 		// 직원 등록
-		$('#emploayInsertForm').submit(function(e) {
+		$('#emploayUpdateForm').submit(function(e) {
 			e.preventDefault();
-			
-			let url = $(this).attr('action');
 			
 			if (unapostrophe($('#residentNumber').val()).length < 13) {
 				alert('주민등록번호를 확인해주세요.');
@@ -202,18 +295,33 @@
 				return;
 			}
 			
+			if (parseInt($('#totAnnualLeave').val()) < parseInt($('#useAnnualLeave').val()) + parseInt($('#remainAnnualLeave').val())) {
+				alert('연차 수를 확인해 주세요.');
+				$('#totAnnualLeave').focus();
+				return;
+			}
+			
 			let formData = new FormData();
-// 			let test = $('#emploayInsertForm').serialize();
-// 			formData.append('name', test);
+			formData.append('id', '${employeeInfoView.employee.id}');
 			formData.append('name', $('#name').val());
 			formData.append('residentNumber', unapostrophe($('#residentNumber').val()));
 			formData.append('email', $('#email').val().trim());
 			formData.append('password', $('#password').val());
 			formData.append('dateHired', $('#dateHired').val());
 			formData.append('totAnnualLeave', $('#totAnnualLeave').val());
+			formData.append('useAnnualLeave', $('#useAnnualLeave').val()); // new
+			formData.append('remainAnnualLeave', $('#remainAnnualLeave').val()); // new
 			formData.append('annualIncome', uncomma($('#annualIncome').val()));
 			formData.append('salary', uncomma($('#salary').val()));
 			formData.append('file', $('#profile')[0].files[0]);
+			let filePath;
+			// 불러온 파일 경로
+			if ($('.fileUpdate').text() == '') {
+				filePath = false;
+			} else {
+				filePath = true;
+			}
+			formData.append('filePath', filePath);
 			formData.append('groupId', $('#groupId').val());
 			formData.append('positionId', $('#positionId').val());
 			formData.append('officialId', $('#officialId').val());
@@ -224,15 +332,15 @@
 			formData.append('authorityForm', $('input:radio[name=authorityForm]:checked').val());
 			
 			$.ajax({
-				type: 'POST'
-				, url: '/employee/employee_insert'
+				type: 'PUT'
+				, url: '/employee/employee_update'
 				, data: formData
 				, enctype : 'multipart/form-data'
 				, processData : false
 				, contentType : false
 				, success:function(data) {
 					if (data.result == 'success') {
-						alert('직원 등록 완료');
+						alert('직원 정보 수정 완료');
 						location.href='/employee/employee_list_view';
 					}
 					if (data.result == 'Emailoverlap') {

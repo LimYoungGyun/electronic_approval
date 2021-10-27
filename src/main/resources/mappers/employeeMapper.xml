@@ -59,9 +59,30 @@
 			`email` = #{email}
 			AND `password` = #{password}
 	</select>
-	<select id="selectNameById" parameterType="int" resultType="String">
+	<select id="selectEmployeeById" parameterType="int" resultType="com.electronicapproval.employee.model.Employee">
 		SELECT
-			`name`
+			`id`
+			, `name`
+			, `email`
+			, `password`
+			, `residentNumber`
+			, `dateHired`
+			, `totAnnualLeave`
+			, `useAnnualLeave`
+			, `remainAnnualLeave`
+			, `groupId`
+			, `positionId`
+			, `officialId`
+			, `annualIncome`
+			, `salary`
+			, `profilePath`
+			, `authorityPost`
+			, `authorityGroup`
+			, `authorityEmployee`
+			, `authorityCommute`
+			, `authorityForm`
+			, `createdAt`
+			, `updatedAt`
 		FROM
 			`employee`
 		WHERE
@@ -77,7 +98,7 @@
 			, `dateHired`
 			, `totAnnualLeave`
 <!-- 			, `useAnnualLeave` -->
-<!-- 			, `remainAnnualLeave` -->
+			, `remainAnnualLeave`
 			, `groupId`
 			, `positionId`
 			, `officialId`
@@ -101,7 +122,7 @@
 			, #{dateHired}
 			, #{totAnnualLeave}
 <!-- 			, #{useAnnualLeave} -->
-<!-- 			, #{remainAnnualLeave} -->
+			, #{remainAnnualLeave}
 			, #{groupId}
 			, #{positionId}
 			, #{officialId}
@@ -117,4 +138,57 @@
 			, NOW()
 		)
 	</insert>
+	
+	<update id="updateEmployeeByNoPassword" parameterType="com.electronicapproval.employee.model.Employee">
+		UPDATE `employee`
+		SET
+			`name` = #{name}
+			, `email` = #{email}
+			, `residentNumber` = #{residentNumber}
+			, `dateHired` = #{dateHired}
+			, `totAnnualLeave` = #{totAnnualLeave}
+			, `useAnnualLeave` = #{useAnnualLeave}
+			, `remainAnnualLeave` = #{remainAnnualLeave}
+			, `groupId` = #{groupId}
+			, `positionId` = #{positionId}
+			, `officialId` = #{officialId}
+			, `annualIncome` = #{annualIncome}
+			, `salary` = #{salary}
+			, `profilePath` = #{profilePath}
+			, `authorityPost` = #{authorityPost}
+			, `authorityGroup` = #{authorityGroup}
+			, `authorityEmployee` = #{authorityEmployee}
+			, `authorityCommute` = #{authorityCommute}
+			, `authorityForm` = #{authorityForm}
+			, `updatedAt` = NOW()
+		WHERE
+			`id` = #{id}
+	</update>
+	
+	<update id="updateEmployeeByPassword" parameterType="com.electronicapproval.employee.model.Employee">
+		UPDATE `employee`
+		SET
+			`name` = #{name}
+			, `email` = #{email}
+			, `password` = #{password}
+			, `residentNumber` = #{residentNumber}
+			, `dateHired` = #{dateHired}
+			, `totAnnualLeave` = #{totAnnualLeave}
+			, `useAnnualLeave` = #{useAnnualLeave}
+			, `remainAnnualLeave` = #{remainAnnualLeave}
+			, `groupId` = #{groupId}
+			, `positionId` = #{positionId}
+			, `officialId` = #{officialId}
+			, `annualIncome` = #{annualIncome}
+			, `salary` = #{salary}
+			, `profilePath` = #{profilePath}
+			, `authorityPost` = #{authorityPost}
+			, `authorityGroup` = #{authorityGroup}
+			, `authorityEmployee` = #{authorityEmployee}
+			, `authorityCommute` = #{authorityCommute}
+			, `authorityForm` = #{authorityForm}
+			, `updatedAt` = NOW()
+		WHERE
+			`id` = #{id}
+	</update>
 </mapper>

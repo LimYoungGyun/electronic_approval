@@ -59,23 +59,23 @@
 		
 		// 상세화면으로 이동
 		// row 데이터 가져오기
-// 		$("#tableList tr").click(function(){ 	
-// 			let str = '';
+		$("#tableList tr").click(function(){ 	
+			let str = '';
 			
-// 			// 현재 클릭된 Row(<tr>)
-// 			let tr = $(this);
-// 			let td = tr.children();
+			// 현재 클릭된 Row(<tr>)
+			let tr = $(this);
+			let td = tr.children();
 			
-// 			// td.eq(index)를 통해 값을 가져올 수도 있다.
-// 			let groupId = td.eq(4).text();
+			// td.eq(index)를 통해 값을 가져올 수도 있다.
+			let employeeId = td.eq(7).text();
 			
-// 			// 숫자가 아닌값 확인.
-// 			if (!$.isNumeric(groupId)) {
-// 				return;
-// 			}
+			// 숫자가 아닌값 확인.
+			if (!$.isNumeric(employeeId)) {
+				return;
+			}
 			
-// 			location.href='/group/group_detail_view?groupId='+groupId;
-// 		});
+			location.href='/employee/employee_detail_view?employeeId='+employeeId;
+		});
 		
 	});
 </script>

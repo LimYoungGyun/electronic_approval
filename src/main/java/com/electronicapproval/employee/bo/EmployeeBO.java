@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.electronicapproval.common.FileManagerService;
@@ -78,13 +79,40 @@ public class EmployeeBO {
 		
 		return employeeInfoViewList;
 	}
+	
+	public EmployeeInfoView getemployeeInfoView(int employeeId) {
+		
+		// 내용을 저장할 객체 생성.
+		EmployeeInfoView employeeInfoView = new EmployeeInfoView();
+		
+		Employee employee = getEmployeeById(employeeId);
+		employeeInfoView.setEmployee(employee);
+		
+		Group group = groupBO.getGroupById(employee.getGroupId());
+		employeeInfoView.setGroup(group);
+		
+		Position position = positionBO.getPositionById(employee.getPositionId());
+		employeeInfoView.setPosition(position);
+		
+		Official official = new Official();
+		if (employee.getOfficialId() == null) {
+			official.setId(0);
+			official.setName("-");
+			employeeInfoView.setOfficial(official);
+		} else {
+			official = officialBO.getOfficialById(employee.getOfficialId());
+			employeeInfoView.setOfficial(official);
+		}
+		
+		return employeeInfoView;
+	}
 
 	public Employee getEmployeeByEmailAndPassword(String email, String password) {
 		return employeeDAO.selectEmployeeByEmailAndPassword(email, password);
 	}
 	
-	public String getNameById(int id) {
-		return employeeDAO.selectNameById(id);
+	public Employee getEmployeeById(int id) {
+		return employeeDAO.selectEmployeeById(id);
 	}
 	
 	public int addEmployeeInsert(Employee employee, MultipartFile file) {
@@ -96,6 +124,8 @@ public class EmployeeBO {
 			employeeEmail = employeeIdArr[0];
 		}
 		
+		employee.setRemainAnnualLeave(employee.getTotAnnualLeave());
+		
 		String imagePath = null;
 		try {
 			imagePath = fileManagerService.saveImageFile(employeeEmail, file);
@@ -105,5 +135,63 @@ public class EmployeeBO {
 		}
 		
 		return employeeDAO.insertEmployeeInsert(employee);
+	}
+	
+	@Transactional
+	public int updateEmployeeByNoPassword(Employee employee, MultipartFile file, Boolean filePath) {
+		
+		EmployeeInfoView employeeInfoView = getemployeeInfoView(employee.getId());
+		
+		String employeeEmail = employee.getEmail();
+		if (employeeEmail.contains("@")) {
+			String[] employeeIdArr = employeeEmail.split("@");
+			employeeEmail = employeeIdArr[0];
+		}
+		
+		if (filePath == true) {
+			// 기존의 filePath저장
+			employee.setProfilePath(employeeInfoView.getEmployee().getProfilePath());
+			// update 진행
+			
+		} else {
+			try {
+				// 기존의 filePath 삭제
+				fileManagerService.deleteImageFile(employeeInfoView.getEmployee().getProfilePath());
+				// 새로운 file 등록
+				employee.setProfilePath(fileManagerService.saveImageFile(employeeEmail, file));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return employeeDAO.updateEmployeeByNoPassword(employee);
+	}
+	
+	@Transactional
+	public int updateEmployeeByPassword(Employee employee, MultipartFile file, Boolean filePath) {
+		
+		EmployeeInfoView employeeInfoView = getemployeeInfoView(employee.getId());
+		
+		String employeeEmail = employee.getEmail();
+		if (employeeEmail.contains("@")) {
+			String[] employeeIdArr = employeeEmail.split("@");
+			employeeEmail = employeeIdArr[0];
+		}
+		
+		if (filePath == true) {
+			// 기존의 filePath저장
+			employee.setProfilePath(employeeInfoView.getEmployee().getProfilePath());
+			// update 진행
+			
+		} else {
+			try {
+				// 기존의 filePath 삭제
+				fileManagerService.deleteImageFile(employeeInfoView.getEmployee().getProfilePath());
+				// 새로운 file 등록
+				employee.setProfilePath(fileManagerService.saveImageFile(employeeEmail, file));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return employeeDAO.updateEmployeeByPassword(employee);
 	}
 }

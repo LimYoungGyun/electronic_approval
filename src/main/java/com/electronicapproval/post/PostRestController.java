@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -78,6 +79,23 @@ public class PostRestController {
 		post.setEmployeeId(employeeId);
 		
 		int cnt = postBO.updatePost(post, files, filePath);
+		
+		if (cnt >= 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+	}
+	
+	@DeleteMapping("/delete")
+	public Map<String, Object> postDelete(
+			@RequestParam("id") int id) {
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		int cnt = postBO.deletePostById(id);
 		
 		if (cnt >= 1) {
 			result.put("result", "success");

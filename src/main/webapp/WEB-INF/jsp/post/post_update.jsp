@@ -17,23 +17,28 @@
 				<textarea id="content" name="content" class="form-control" rows="15" required>${post.content}</textarea>
 				
 				<label for="file">파일첨부</label>
-				<input type="file" id="file" name="file" class="form-control d-none" value="${postFiles}" multiple>
 				
 				<div class="d-flex">
-				<div class="fileUpdate form-control">
-					<button type="button" class="fileSelect"> 파일 선택</button>
-					<c:if test="${not empty postFiles}">
-						<c:forEach items="${postFiles}" var="file">
-							<c:set var="filePrint" value="${fn:split(file.filePath, '/')}" />
-							<span class="fileText">${filePrint[fn:length(filePrint)-1]} </span><br>
-						</c:forEach>
-					</c:if>
-				</div>
+					<input type="file" id="file" name="file" class="form-control d-none" value="${postFiles}" multiple>
+					<div class="fileUpdate form-control">
+						<button type="button" class="fileSelect"> 파일 선택</button>
+						<c:if test="${not empty postFiles}">
+							<c:forEach items="${postFiles}" var="file">
+								<c:set var="filePrint" value="${fn:split(file.filePath, '/')}" />
+								<span class="fileText">${filePrint[fn:length(filePrint)-1]} </span><br>
+							</c:forEach>
+						</c:if>
+					</div>
 				</div>
 			</div>
-			<div class="buttonLine inputpage">
-				<button type="button" class="postDeleteBtn btn btn-danger"> 파일 삭제</button>
-				<button type="submit" class="postRegistBtn btn btn-success" >수정</button>
+			<div class="allButtonLine">
+				<div class="fileDelete">
+					<button type="button" class="postFileDeleteBtn btn btn-danger">첨부 파일 삭제</button>
+				</div>
+				<div class="buttonLine inputpage">
+					<button type="submit" class="postRegistBtn btn btn-success" >수정</button>
+					<button type="button" class="postDeleteBtn btn btn-danger">삭제</button>
+				</div>
 			</div>
 		</form>
 	</div>
@@ -50,7 +55,7 @@
 		
 		// 첨부파일 없을시 '파일 삭제'버튼 숨기기
 		if ($('#file').val() == '' && $('.fileText').text() == '') {
-			$('.postDeleteBtn').addClass('d-none');
+			$('.postFileDeleteBtn').addClass('d-none');
 		}
 		
 		// 첨부파일 클릭 이벤트
@@ -62,16 +67,39 @@
 			$(this).removeClass('d-none');
 			$('.fileUpdate').text('');
 			$('.fileUpdate').addClass('d-none');
-			$('.postDeleteBtn').removeClass('d-none');
+			$('.postFileDeleteBtn').removeClass('d-none');
 		});
 		
 		// 파일 삭제
-		$('.postDeleteBtn').on('click', function() {
+		$('.postFileDeleteBtn').on('click', function() {
 			$('.fileUpdate').text('');
 			$('.fileUpdate').addClass('d-none');
 			$('#file').val('');
 			$('#file').removeClass('d-none');
 			$(this).addClass('d-none');
+		});
+		
+		// 게시물 삭제
+		$('.postDeleteBtn').on('click', function() {
+			let check = confirm('해당 게시물을 삭제하시겠습니까??');
+			if (check) {
+				$.ajax({
+					type: 'DELETE'
+					, url: '/post/delete'
+					, data: {
+						'id' : ${post.id}
+					}
+					, success:function(data) {
+						if (data.result == 'success') {
+							alert('공지사항 삭제 완료');
+							location.href='/post/post_list_view';
+						}
+					}
+					, error:function(e) {
+						alert('공지사항 삭제 에러발생 : ' + e);
+					}
+				});
+			}
 		});
 		
 		// 공지사항 수정

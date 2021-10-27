@@ -56,6 +56,16 @@
 /* .page-content-size .contents .content .detailTable th{ */
 /* 	background: #808080; */
 /* } */
+
+.allButtonLine {
+	display: flex;
+	justify-content: space-between;
+	width: 70%;
+}
+.allButtonLine .fileDelete {
+	display: flex;
+	justify-content: flex-start;
+}
 .buttonLine {
 	width: 100%;
 	display: flex;
@@ -70,7 +80,6 @@
 /* 	margin-left: 20px; */
 /* 	width: 90px; */
 /* } */
-
 .buttonLine button {
 	margin-left: 20px;
 	width: 90px;

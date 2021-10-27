@@ -93,7 +93,11 @@ public class PostBO {
 			if (!CollectionUtils.isEmpty(fileList)) {
 				// 파일 삭제
 				try {
-					fileManagerService.deleteFile(fileList.get(0).getFilePath());
+					path = fileList.get(0).getFilePath();
+					for (File file : fileList) {
+						fileManagerService.deleteFile(file.getFilePath());
+					}
+					fileManagerService.deleteFolder(path);
 					// DB 파일 삭제
 					fileBO.deleteFileById(post.getId());
 				} catch (IOException e) {
@@ -140,7 +144,11 @@ public class PostBO {
 			if (!CollectionUtils.isEmpty(fileList)) {
 				// 파일 삭제
 				try {
-					fileManagerService.deleteFile(fileList.get(0).getFilePath());
+					String path = fileList.get(0).getFilePath();
+					for (File file : fileList) {
+						fileManagerService.deleteFile(file.getFilePath());
+					}
+					fileManagerService.deleteFolder(path);
 					// DB 파일 삭제
 					fileBO.deleteFileById(post.getId());
 				} catch (IOException e) {
@@ -152,5 +160,28 @@ public class PostBO {
 		}
 		
 		return postCnt;
+	}
+	
+	public int deletePostById(int id) {
+		int cnt = 0;
+		List<File> fileList = fileBO.getFileListById(id);
+		
+		if (!CollectionUtils.isEmpty(fileList)) {
+			// 파일 삭제
+			try {
+				String path = fileList.get(0).getFilePath();
+				for (File file : fileList) {
+					fileManagerService.deleteFile(file.getFilePath());
+				}
+				fileManagerService.deleteFolder(path);
+				// DB 파일 삭제
+				fileBO.deleteFileById(id);
+				cnt = postDAO.deletePostById(id);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return cnt;
 	}
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,13 +44,19 @@ public class FileManagerService {
 	}
 	
 	// 파일 삭제
-	public void deleteFile(String imagePath) throws IOException {
-		Path path = Paths.get(FILE_UPLOAD_PATH + imagePath.replace("/images/", ""));
+	public void deleteFile(String filesPath) throws IOException {
+		Path path = Paths.get(FILE_UPLOAD_PATH + filesPath.replace("/files/", ""));
 		
 		if (Files.exists(path)) {
 			// 파일이 존재하면 삭제한다.
 			Files.delete(path);
 		}
+		
+	}
+	
+	// 파일 디렉토리 삭제
+	public void deleteFolder(String filesPath) throws IOException {
+		Path path = Paths.get(FILE_UPLOAD_PATH + filesPath.replace("/files/", ""));
 		
 		// 디렉토리 삭제
 		path = path.getParent();

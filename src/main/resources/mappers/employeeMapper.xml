@@ -191,4 +191,12 @@
 		WHERE
 			`id` = #{id}
 	</update>
+	
+	<delete id="deleteEmployeeById" parameterType="int">
+		DELETE
+		FROM
+			`employee`
+		WHERE
+			`id` = #{id}
+	</delete>
 </mapper>

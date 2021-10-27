@@ -194,4 +194,13 @@ public class EmployeeBO {
 		}
 		return employeeDAO.updateEmployeeByPassword(employee);
 	}
+	
+	public int deleteEmployeeById(int id, String profilePath) {
+		try {
+			fileManagerService.deleteImageFile(profilePath);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return employeeDAO.deleteEmployeeById(id);
+	}
 }

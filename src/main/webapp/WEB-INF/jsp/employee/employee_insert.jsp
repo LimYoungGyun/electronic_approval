@@ -225,7 +225,7 @@
 			
 			$.ajax({
 				type: 'POST'
-				, url: '/employee/employee_insert'
+				, url: '/employee/insert'
 				, data: formData
 				, enctype : 'multipart/form-data'
 				, processData : false

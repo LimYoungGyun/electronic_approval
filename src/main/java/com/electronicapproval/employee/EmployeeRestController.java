@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -28,7 +29,14 @@ public class EmployeeRestController {
 	@Autowired
 	private EmployeeBO employeeBO;
 
-	@PostMapping("/employee_insert")
+	/**
+	 * 직원관리 등록 API.
+	 * @param employee
+	 * @param file
+	 * @param request
+	 * @return
+	 */
+	@PostMapping("/insert")
 	public Map<String, Object> employeeInsert(
 			@ModelAttribute Employee employee
 			, @RequestParam("file") MultipartFile file
@@ -60,7 +68,14 @@ public class EmployeeRestController {
 		return result;
 	}
 	
-	@PutMapping("/employee_update")
+	/**
+	 * 직원관리 수정 API.
+	 * @param employee
+	 * @param file
+	 * @param filePath
+	 * @return
+	 */
+	@PutMapping("/update")
 	public Map<String, Object> employeeUpdate(
 			@ModelAttribute Employee employee 
 			, @RequestParam(value = "file", required = false) MultipartFile file
@@ -91,6 +106,30 @@ public class EmployeeRestController {
 			employee.setPassword(EncryptUtils.md5(employee.getPassword()));
 			cnt = employeeBO.updateEmployeeByPassword(employee, file, filePath);
 		}
+		
+		if (cnt >= 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 직원관리 삭제 API.
+	 * @param id
+	 * @param profilePath
+	 * @return
+	 */
+	@DeleteMapping("/delete")
+	public Map<String, Object> employeeUpdate(
+			@RequestParam("id") int id
+			, @RequestParam("profilePath") String profilePath) {
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		int cnt = employeeBO.deleteEmployeeById(id, profilePath);
 		
 		if (cnt >= 1) {
 			result.put("result", "success");

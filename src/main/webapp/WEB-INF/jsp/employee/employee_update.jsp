@@ -141,11 +141,14 @@
 				</c:if>
 			</div>
 			
-			<c:if test="${authorityEmployee == 'WR' || employeeInfoView.employee.id == employeeId}">
 				<div class="buttonLine inputpage">
-					<button type="submit" class="employeeUpdateBtn btn btn-success">수정</button>
+					<c:if test="${authorityEmployee == 'WR'}">
+						<button type="button" class="employeeDeleteBtn btn btn-danger">삭제</button>
+					</c:if>
+					<c:if test="${authorityEmployee == 'WR' || employeeInfoView.employee.id == employeeId}">
+						<button type="submit" class="employeeUpdateBtn btn btn-success">수정</button>
+					</c:if>
 				</div>
-			</c:if>
 		</form>
 	</div>
 </div>
@@ -176,7 +179,7 @@
 		};
 		
 		// 데이터 불러오기
-		if (${employeeInfoView.employee.id == employeeId}) {
+		if (${employeeInfoView.employee.id == employeeId || employeeEmail == 'admin'}) {
 			$('.myPassword').removeClass('d-none');
 			$('#password').prop('disabled', false);
 		}
@@ -285,7 +288,31 @@
 			}
 		});
 		
-		// 직원 등록
+		// 게시물 삭제
+		$('.employeeDeleteBtn').on('click', function() {
+			let check = confirm('해당 게시물을 삭제하시겠습니까??');
+			if (check) {
+				$.ajax({
+					type: 'DELETE'
+					, url: '/employee/delete'
+					, data: {
+						'id' : ${employeeInfoView.employee.id}
+						, 'profilePath' : '${employeeInfoView.employee.profilePath}'
+					}
+					, success:function(data) {
+						if (data.result == 'success') {
+							alert('직원 정보 삭제 완료');
+							location.href='/employee/employee_list_view';
+						}
+					}
+					, error:function(e) {
+						alert('직원 정보 삭제 에러발생 : ' + e);
+					}
+				});
+			}
+		});
+		
+		// 직원 정보 수정
 		$('#emploayUpdateForm').submit(function(e) {
 			e.preventDefault();
 			
@@ -333,7 +360,7 @@
 			
 			$.ajax({
 				type: 'PUT'
-				, url: '/employee/employee_update'
+				, url: '/employee/update'
 				, data: formData
 				, enctype : 'multipart/form-data'
 				, processData : false

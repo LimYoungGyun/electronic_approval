@@ -33,6 +33,11 @@ public class EmployeeController {
 	@Autowired
 	private OfficialBO officialBO;
 
+	/**
+	 * 직원관리 리스트 페이지로 이동.
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/employee_list_view")
 	public String employeeListView(Model model) {
 		
@@ -45,6 +50,11 @@ public class EmployeeController {
 		return "template/layout";
 	}
 	
+	/**
+	 * 직원관리 등록 페이지로 이동.
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/employee_insert_view")
 	public String employeeInsertView(Model model) {
 		
@@ -60,6 +70,12 @@ public class EmployeeController {
 		return "template/layout";
 	}
 	
+	/**
+	 * 직원관리 상세 페이지로 이동.
+	 * @param employeeId
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/employee_detail_view")
 	public String employeeInsertView(
 			@RequestParam("employeeId") int employeeId
@@ -73,6 +89,12 @@ public class EmployeeController {
 		return "template/layout";
 	}
 	
+	/**
+	 * 직원관리 수정 페이지로 이동.
+	 * @param employeeId
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/employee_update_view")
 	public String employeeUpdateView(
 			@RequestParam("employeeId") int employeeId

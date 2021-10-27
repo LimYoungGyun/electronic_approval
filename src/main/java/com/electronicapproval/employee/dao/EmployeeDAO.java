@@ -24,4 +24,6 @@ public interface EmployeeDAO {
 	public int updateEmployeeByNoPassword(Employee employee);
 	
 	public int updateEmployeeByPassword(Employee employee);
+	
+	public int deleteEmployeeById(int id);
 }

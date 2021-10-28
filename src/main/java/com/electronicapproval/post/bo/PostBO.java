@@ -180,6 +180,8 @@ public class PostBO {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		} else {
+			cnt = postDAO.deletePostById(id);
 		}
 		
 		return cnt;

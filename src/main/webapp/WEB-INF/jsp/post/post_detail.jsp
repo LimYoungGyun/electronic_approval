@@ -37,7 +37,7 @@
 			<textarea id="content" name="content" class="form-control" rows="15" disabled>${post.content}</textarea>
 		</div>
 			<div class="buttonLine inputpage">
-				<button type="button" class="postListBtn btn btn-secondary">목록으로</button>
+				<button type="button" class="postListBtn btn btn-secondary">목록</button>
 				<c:if test="${authorityPost == 'WR' && post.employeeId eq employeeId}">
 					<button type="button" class="postDetailBtn btn btn-success">수정</button>
 				</c:if>

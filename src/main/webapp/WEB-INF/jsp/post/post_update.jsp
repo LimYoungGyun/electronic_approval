@@ -36,8 +36,8 @@
 					<button type="button" class="postFileDeleteBtn btn btn-danger">첨부 파일 삭제</button>
 				</div>
 				<div class="buttonLine inputpage">
-					<button type="submit" class="postRegistBtn btn btn-success" >수정</button>
 					<button type="button" class="postDeleteBtn btn btn-danger">삭제</button>
+					<button type="submit" class="postRegistBtn btn btn-success" >수정</button>
 				</div>
 			</div>
 		</form>

@@ -22,6 +22,10 @@ public class GroupBO {
 		return groupDAO.selectGroupById(id);
 	}
 	
+	public List<Group> getGroupListById(int id) {
+		return groupDAO.selectGroupListById(id);
+	}
+	
 	public int addGroup(String groupName, int topLevelId, String content) {
 		
 		// topLevel, level, topGroupName을 가져오기 위한 쿼리

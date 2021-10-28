@@ -1,9 +1,11 @@
 package com.electronicapproval.group;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.electronicapproval.group.bo.GroupBO;
+import com.electronicapproval.group.model.Group;
 
 @RestController
 @RequestMapping("/group")
@@ -87,11 +90,17 @@ public class GroupRestController {
 		
 		Map<String, Object> result = new HashMap<>();
 		
-		int cnt = groupBO.deleteGroup(id);
-		if (cnt >= 1) {
-			result.put("result", "success");
+		List<Group> groupList = groupBO.getGroupListById(id);
+		if (CollectionUtils.isEmpty(groupList)) {
+			int cnt = groupBO.deleteGroup(id);
+			
+			if (cnt >= 1) {
+				result.put("result", "success");
+			} else {
+				result.put("result", "fail");
+			}
 		} else {
-			result.put("result", "fail");
+			result.put("result", "group");
 		}
 		
 		return result;

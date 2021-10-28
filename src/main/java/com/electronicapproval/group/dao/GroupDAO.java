@@ -13,11 +13,14 @@ public interface GroupDAO {
 	
 	public Group selectGroupById(int id);
 	
+	public List<Group> selectGroupListById(int id);
+	
 	public List<Group> selectTopGroupByLevelList(int level);
 	
 	public int insertGroup(Group group);
 
 	public int updateGroup(Group group);
+	
 	
 	public int deleteGroup(int id);
 }

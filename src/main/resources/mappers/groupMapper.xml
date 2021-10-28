@@ -35,6 +35,23 @@
 			`id` = #{id}
 	</select>
 	
+	<select id="selectGroupListById" parameterType="int" resultType="com.electronicapproval.group.model.Group">
+		SELECT
+			`id`
+			, `topId`
+			, `topLevel`
+			, `level`
+			, `topGroupName`
+			, `groupName`
+			, `content`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`group`
+		WHERE
+			`topId` = #{id}
+	</select>
+	
 	<select id="selectTopGroupByLevelList" parameterType="int" resultType="com.electronicapproval.group.model.Group">
 		SELECT
 			`id`

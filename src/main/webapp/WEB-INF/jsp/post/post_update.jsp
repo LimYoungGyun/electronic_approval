@@ -36,7 +36,7 @@
 					<button type="button" class="postFileDeleteBtn btn btn-danger">첨부 파일 삭제</button>
 				</div>
 				<div class="buttonLine inputpage">
-					<button type="button" class="postDeleteBtn btn btn-danger">삭제</button>
+					<button type="button" class="postListBtn btn btn-secondary">목록</button>
 					<button type="submit" class="postRegistBtn btn btn-success" >수정</button>
 				</div>
 			</div>
@@ -79,27 +79,9 @@
 			$(this).addClass('d-none');
 		});
 		
-		// 게시물 삭제
-		$('.postDeleteBtn').on('click', function() {
-			let check = confirm('해당 게시물을 삭제하시겠습니까??');
-			if (check) {
-				$.ajax({
-					type: 'DELETE'
-					, url: '/post/delete'
-					, data: {
-						'id' : ${post.id}
-					}
-					, success:function(data) {
-						if (data.result == 'success') {
-							alert('공지사항 삭제 완료');
-							location.href='/post/post_list_view';
-						}
-					}
-					, error:function(e) {
-						alert('공지사항 삭제 에러발생 : ' + e);
-					}
-				});
-			}
+		// 공지사항 리스트 페이지로 이동.
+		$('.postListBtn').on('click', function() {
+			location.href='/post/post_list_view';
 		});
 		
 		// 공지사항 수정

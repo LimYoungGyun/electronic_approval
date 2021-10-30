@@ -20,7 +20,7 @@
 		</a>
 	</li>
 	<li>
-		<a href="#">
+		<a href="/commute/commute_list_view"  class="links_name_Commute">
 			<i class='bx bx-bell-minus'></i> <span class="links_name">Commute</span>
 		</a>
 	</li>

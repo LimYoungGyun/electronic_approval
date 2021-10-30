@@ -243,6 +243,32 @@ nav .sidebar-button i {
 	margin-right: 10px;
 }
 
+
+
+
+/* Top 출퇴근 버튼 추가 */
+.nav-line {
+	display: flex;
+	align-items: center;
+}
+.nav-line button {
+	margin-right: 20px;
+	width: 90px;
+	height: 38px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 .home-section nav .profile-details {
 	display: flex;
 	align-items: center;
@@ -288,6 +314,10 @@ nav .profile-details i {
 	width: 65%;
 }
 .postList a {
+	color: #333;
+	text-decoration: none;
+}
+.top-sales a {
 	color: #333;
 	text-decoration: none;
 }

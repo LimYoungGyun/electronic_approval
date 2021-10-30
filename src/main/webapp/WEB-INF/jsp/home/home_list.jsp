@@ -32,7 +32,7 @@
 		</div>
 	</div>
 	<br>
-	<div class="contents box">
+	<div class="contents box test1111">
 		<div class="title">휴가자 목록</div>
 		<div class="content">
 			<table class="table">
@@ -48,25 +48,53 @@
 					<td>asd</td>
 					<td>asdf</td>
 				</tr>
+				<tr>
+					<td>adf</td>
+					<td>adf</td>
+					<td>asd</td>
+					<td>asdf</td>
+				</tr>
+				<tr>
+					<td>adf</td>
+					<td>adf</td>
+					<td>asd</td>
+					<td>asdf</td>
+				</tr>
+				<tr>
+					<td>adf</td>
+					<td>adf</td>
+					<td>asd</td>
+					<td>asdf</td>
+				</tr>
 			</table>
 		</div>
 	</div>
 </div>
 <div class="top-sales box">
-	<div class="title">출 퇴근 현황</div>
-	<table class="table">
-		<tr>
-			<th>1</th>
-			<th>2</th>
-			<th>3</th>
-			<th>4</th>
-		</tr>
-		<tr>
-			<td>adf</td>
-			<td>adf</td>
-			<td>asd</td>
-			<td>asdf</td>
-		</tr>
+	<div class="title"><a href="/commute/commute_list_view">출 퇴근 현황</a></div>
+	<table class="table table-hover text-center">
+		<thead>
+			<tr>
+				<th>이름</th>
+				<th>출근시간</th>
+				<th>퇴근시간</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${commuteInfoViewList}" var="commuteInfoView" varStatus="status">
+				<tr>
+					<td>${commuteInfoView.employee.name}</td>
+					<c:if test="${not empty commuteInfoView.commute.attendanceTime}">
+						<td>출근</td>
+					</c:if>
+					<c:if test="${empty commuteInfoView.commute.attendanceTime}">
+						<td>-</td>
+					</c:if>
+<%-- 						<td class="attendanceTime"><fmt:formatDate value="${commuteInfoView.commute.attendanceTime}" pattern="HH:mm:ss" var="attendanceTime"/>${attendanceTime}</td> --%>
+					<td class="quittingTime"><fmt:formatDate value="${commuteInfoView.commute.quittingTime}" pattern="HH:mm:ss" var="quittingTime"/>${quittingTime}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
 	</table>
 </div>
 <script>

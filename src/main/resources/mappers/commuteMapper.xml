@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.electronicapproval.commute.dao.CommuteDAO">
+	
+	<select id="getCommuteList" parameterType="map" resultType="com.electronicapproval.commute.model.Commute">
+		SELECT
+			`id`
+			, `employeeId`
+			, `positionId`
+			, `attendanceTime`
+			, `quittingTime`
+			, `overTime`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`commute`
+		WHERE
+		<![CDATA[
+			`createdAt` >= #{startDate}
+			AND `createdAt` < #{endDate}
+		]]>
+	</select>
+	
+	<select id="selectCommuteByIdAndDates" parameterType="map" resultType="com.electronicapproval.commute.model.Commute">
+		SELECT
+			`id`
+			, `employeeId`
+			, `positionId`
+			, `attendanceTime`
+			, `quittingTime`
+			, `overTime`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`commute`
+		WHERE
+			`employeeId` = #{employeeId}
+		<![CDATA[
+			AND `createdAt` >= #{startDate}
+			AND `createdAt` < #{endDate}
+		]]>
+	</select>
+	
+	<select id="selectCommuteById" parameterType="int" resultType="com.electronicapproval.commute.model.Commute">
+		SELECT
+			`id`
+			, `employeeId`
+			, `positionId`
+			, `attendanceTime`
+			, `quittingTime`
+			, `overTime`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`commute`
+		WHERE
+			`employeeId` = #{employeeId}
+		ORDER BY `attendanceTime` DESC
+		LIMIT 1
+	</select>
+	
+	<insert id="insertAttendanceTime" parameterType="map">
+		INSERT INTO `commute`
+		(
+			`employeeId`
+			, `positionId`
+			, `attendanceTime`
+			, `createdAt`
+			, `updatedAt`
+		)
+		VALUES
+		(
+			#{employeeId}
+			, #{positionId}
+			, NOW()
+			, NOW()
+			, NOW()
+		)
+	</insert>
+	
+	<update id="updateQuittingTime" parameterType="map">
+		UPDATE `commute`
+		SET
+			`quittingTime` = #{quittingTime}
+			, `overTime` = #{overTime}
+			, `updatedAt` = NOW()
+		WHERE
+			`employeeId` = #{employeeId}
+			AND `attendanceTime` = #{attendanceTime}
+	</update>
+</mapper>

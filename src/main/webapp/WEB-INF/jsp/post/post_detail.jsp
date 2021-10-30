@@ -37,7 +37,7 @@
 			<textarea id="content" name="content" class="form-control" rows="15" disabled>${post.content}</textarea>
 		</div>
 		<div class="allButtonLine">
-			<div class="postDelete">
+			<div class="delete">
 				<c:if test="${authorityPost == 'WR' && post.employeeId eq employeeId}">
 					<button type="button" class="postDeleteBtn btn btn-danger">삭제</button>
 				</c:if>

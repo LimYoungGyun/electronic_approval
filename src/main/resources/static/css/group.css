@@ -33,6 +33,14 @@
 /* .page-content-size .contents .content .detailTable th{ */
 /* 	background: #808080; */
 /* } */
+.allButtonLine {
+	display: flex;
+	justify-content: space-between;
+	width: 70%;
+}
+.allButtonLine .delete button {
+	width: 90px;
+}
 .buttonLine {
 	width: 100%;
 	display: flex;

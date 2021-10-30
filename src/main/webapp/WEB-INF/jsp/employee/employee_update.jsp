@@ -64,12 +64,10 @@
 						<input type="text" id="salary" name="salary" class="form-control" value="0" autocomplete="off" disabled>
 					</div>
 				</div>
-				<c:if test="${authorityEmployee == 'WR'}">
-				<div class="inputcontent">
+				<div class="inputcontent authority">
 					<div class="group-left">
 						<label for="profile">사진</label>
 						<input type="file" id="profile" name="profile" class="form-control d-none" accept=".gif, .jpg, .png, .jpeg" required>
-					
 						<div class="fileUpdate form-control">
 							<button type="button" class="fileSelect"> 파일 선택</button>
 							<c:if test="${not empty employeeInfoView.employee.profilePath}">
@@ -79,9 +77,8 @@
 						</div>
 					</div>
 					<button type="button" class="fileDeleteBtn btn btn-danger">파일 삭제</button>
-					
 				</div>
-				<div class="inputcontent">
+				<div class="inputcontent authority">
 					<div class="group-left">
 						<label for="groupId">부서</label>
 						<select id="groupId" name="groupId" class="form-control" required>
@@ -138,17 +135,13 @@
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="buttonLine inputpage">
+				<button type="button" class="employeeListBtn btn btn-secondary">목록</button>
+				<c:if test="${authorityEmployee == 'WR' || employeeInfoView.employee.id == employeeId}">
+					<button type="submit" class="employeeUpdateBtn btn btn-success">수정</button>
 				</c:if>
 			</div>
-			
-				<div class="buttonLine inputpage">
-					<c:if test="${authorityEmployee == 'WR'}">
-						<button type="button" class="employeeDeleteBtn btn btn-danger">삭제</button>
-					</c:if>
-					<c:if test="${authorityEmployee == 'WR' || employeeInfoView.employee.id == employeeId}">
-						<button type="submit" class="employeeUpdateBtn btn btn-success">수정</button>
-					</c:if>
-				</div>
 		</form>
 	</div>
 </div>
@@ -177,6 +170,10 @@
 		$.datepicker._gotoToday = function(id) {
 			$(id).datepicker('setDate', new Date()).datepicker('hide').blur();
 		};
+		
+		if (!${authorityEmployee == 'WR'}) {
+			$('.authority').addClass('d-none');
+		}
 		
 		// 데이터 불러오기
 		if (${employeeInfoView.employee.id == employeeId || employeeEmail == 'admin'}) {
@@ -288,28 +285,9 @@
 			}
 		});
 		
-		// 게시물 삭제
-		$('.employeeDeleteBtn').on('click', function() {
-			let check = confirm('해당 게시물을 삭제하시겠습니까??');
-			if (check) {
-				$.ajax({
-					type: 'DELETE'
-					, url: '/employee/delete'
-					, data: {
-						'id' : ${employeeInfoView.employee.id}
-						, 'profilePath' : '${employeeInfoView.employee.profilePath}'
-					}
-					, success:function(data) {
-						if (data.result == 'success') {
-							alert('직원 정보 삭제 완료');
-							location.href='/employee/employee_list_view';
-						}
-					}
-					, error:function(e) {
-						alert('직원 정보 삭제 에러발생 : ' + e);
-					}
-				});
-			}
+		// 직원관리 리스트 페이지로 이동.
+		$('.employeeListBtn').on('click', function() {
+			location.href='/employee/employee_list_view';
 		});
 		
 		// 직원 정보 수정

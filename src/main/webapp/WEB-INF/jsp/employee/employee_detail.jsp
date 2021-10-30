@@ -68,12 +68,21 @@
 				</c:if>
 			</table>
 		</div>
+		
+		
+		<div class="allButtonLine">
+			<div class="delete">
+				<c:if test="${authorityGroup == 'WR'}">
+					<button type="button" class="employeeDeleteBtn btn btn-danger">삭제</button>
+				</c:if>
+			</div>
 			<div class="buttonLine inputpage">
-				<button type="button" class="employeeListBtn btn btn-secondary">목록으로</button>
+				<button type="button" class="employeeListBtn btn btn-secondary">목록</button>
 				<c:if test="${authorityEmployee == 'WR' || employeeInfoView.employee.id == employeeId}">
 					<button type="button" class="employeeDetailBtn btn btn-success">수정</button>
 				</c:if>
 			</div>
+		</div>
 	</div>
 </div>
 <script>
@@ -84,11 +93,6 @@
 		// left menu setting
 		$('.nav-links a').removeClass('active');
 		$('.links_name_Employee').addClass('active');
-		
-		// 직원관리 리스트 페이지로 이동.
-		$('.employeeListBtn').on('click', function() {
-			location.href='/employee/employee_list_view';
-		});
 		
 		// 연봉 ","
 		$('.annualIncome').html(comma(${employeeInfoView.employee.annualIncome}));
@@ -116,6 +120,35 @@
 			}
 			return str;
 		}
+		
+		// 직원 삭제
+		$('.employeeDeleteBtn').on('click', function() {
+			let check = confirm('해당 직원을 삭제하시겠습니까??');
+			if (check) {
+				$.ajax({
+					type: 'DELETE'
+					, url: '/employee/delete'
+					, data: {
+						'id' : ${employeeInfoView.employee.id}
+						, 'profilePath' : '${employeeInfoView.employee.profilePath}'
+					}
+					, success:function(data) {
+						if (data.result == 'success') {
+							alert('직원 정보 삭제 완료');
+							location.href='/employee/employee_list_view';
+						}
+					}
+					, error:function(e) {
+						alert('직원 정보 삭제 에러발생 : ' + e);
+					}
+				});
+			}
+		});
+		
+		// 직원관리 리스트 페이지로 이동.
+		$('.employeeListBtn').on('click', function() {
+			location.href='/employee/employee_list_view';
+		});
 		
 		// 직원관리 수정 페이지로 이동.
 		$('.employeeDetailBtn').on('click', function() {

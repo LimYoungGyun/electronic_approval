@@ -1,0 +1,92 @@
+@charset "UTF-8";
+.page-content-size {
+	width: 100%;
+}
+.page-content-size .contents .content {
+	display: block;
+}
+.page-content-size .contents .content .inputcontent {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	width: 70%;
+}
+.content .inputcontent .form-left {
+	width: 100%;
+}
+.content .inputcontent .form-right {
+	margin-left: 10px;
+	width: 100%;
+}
+.page-content-size table {
+	margin-top: 20px;
+}
+.page-content-size .contents .content input,
+.page-content-size .contents .content select,
+.page-content-size .contents .content textarea {
+	width: 100%;
+	margin-bottom: 20px;
+	resize: none;
+}
+.page-content-size .contents .content .detailTable {
+	width: 70%;
+}
+.page-content-size .contents .content .detailTable th {
+	vertical-align : middle;
+	background: #f5f5f5;
+	width: 15%;
+}
+.page-content-size .contents .content .detailTable td {
+	vertical-align : middle;
+	width: 25%;
+}
+.page-content-size .contents .content textarea:disabled {
+	background: #fff;
+	resize: none;
+}
+.page-content-size .contents .content .detailTable2 {
+	width: 70%;
+}
+.page-content-size .contents .content .detailTable2 th {
+	background: #f5f5f5;
+	width: 15%;
+}
+.page-content-size .contents .content .detailTable2 td {
+	width: 20%;
+}
+
+#startDate ,
+#endDate {
+	background: #fff;
+}
+
+/* .page-content-size .contents .content .detailTable th{ */
+/* 	background: #808080; */
+/* } */
+.allButtonLine {
+	display: flex;
+	justify-content: space-between;
+	width: 70%;
+}
+.allButtonLine .delete button {
+	width: 90px;
+}
+.buttonLine {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+}
+.buttonLine.inputpage {
+	width: 70%;
+}
+/* .buttonLine .postRegistBtn, */
+/* .buttonLine .postDetailBtn, */
+/* .buttonLine .postRegistViewBtn { */
+/* 	margin-left: 20px; */
+/* 	width: 90px; */
+/* } */
+
+.buttonLine button {
+	margin-left: 20px;
+	width: 90px;
+}

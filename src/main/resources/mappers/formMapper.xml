@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.electronicapproval.form.dao.FormDAO">
+	
+	<select id="selectFormListByEmployeeId" parameterType="map" resultType="com.electronicapproval.form.model.Form">
+		SELECT
+			`id`
+			, `employeeId`
+			, `positionId`
+			, `count`
+			, `startDate`
+			, `endDate`
+			, `sendTo`
+			, `status`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`form`
+		WHERE
+			`employeeId` = #{employeeId}
+			<if test="officialId != null">
+				OR `sendTo` = #{employeeId}
+			</if>
+		ORDER BY `id` DESC
+	</select>
+</mapper>

@@ -25,7 +25,8 @@
 		</a>
 	</li>
 	<li>
-		<a href="#"> <i class='bx bx-receipt'></i> <span class="links_name">Form</span>
+		<a href="/form/form_list_view"  class="links_name_Form">
+		<i class='bx bx-receipt'></i> <span class="links_name">Form</span>
 		</a>
 	</li>
 </ul>

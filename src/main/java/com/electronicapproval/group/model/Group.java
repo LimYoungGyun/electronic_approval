@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 public class Group {
 
+	private int ROWNUM;
 	private int id;
 	@NonNull
 	private int topId;

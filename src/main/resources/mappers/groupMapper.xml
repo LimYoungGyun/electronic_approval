@@ -2,6 +2,52 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.electronicapproval.group.dao.GroupDAO">
+	<select id="selectGroupListPage" parameterType="map" resultType="com.electronicapproval.group.model.Group">
+		SELECT
+			`ROWNUM`
+			, `id`
+			, `topId`
+			, `topLevel`
+			, `level`
+			, `topGroupName`
+			, `groupName`
+			, `content`
+			, `createdAt`
+			, `updatedAt`
+		FROM 
+			(
+				SELECT
+					@ROWNUM:=@ROWNUM+1 AS `ROWNUM`
+					, `id`
+					, `topId`
+					, `topLevel`
+					, `level`
+					, `topGroupName`
+					, `groupName`
+					, `content`
+					, `createdAt`
+					, `updatedAt`
+				FROM
+					(
+						SELECT
+							@ROWNUM:=0 AS `ROWNUM`
+							, `id`
+							, `topId`
+							, `topLevel`
+							, `level`
+							, `topGroupName`
+							, `groupName`
+							, `content`
+							, `createdAt`
+							, `updatedAt`
+						FROM
+							`group`
+					) TEMP
+			) PAGING
+		WHERE
+			`ROWNUM` BETWEEN #{startRow} AND #{endRow}
+	</select>
+
 	<select id="selectGroupList" resultType="com.electronicapproval.group.model.Group">
 		SELECT
 			`id`
@@ -15,7 +61,13 @@
 			, `updatedAt`
 		FROM
 			`group`
-<!-- 		ORDER BY `id` DESC -->
+	</select>
+	
+	<select id="selectGroupListCount" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			`group`
 	</select>
 
 	<select id="selectGroupById" parameterType="int" resultType="com.electronicapproval.group.model.Group">

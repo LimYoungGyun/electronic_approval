@@ -17,9 +17,9 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${groupList}" var="group" varStatus="status">
+					<c:forEach items="${groupListPage}" var="group" varStatus="status">
 						<tr>
-							<td>${status.count}</td>
+							<td>${((paging.page - 1) * paging.pageSize) + status.count}</td>
 							<td class="text-left">${group.topGroupName}</td>
 							<td class="text-left">${group.groupName}</td>
 							<td><fmt:formatDate value="${group.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss" var="updatedAt"/>${updatedAt}</td>
@@ -28,6 +28,17 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<div class="paging d-flex justify-content-center mt-5">
+				<c:if test="${pageMaker.prev ne false}">
+					<a href="/group/group_list_view?page=${pageMaker.startPage - 1}" class="mr-5">[이전]</a>
+				</c:if>
+				<c:forEach var="i" begin="${pageMaker.startPage}" end="${pageMaker.endPage}" step="1">
+					<a href="/group/group_list_view?page=${i}" id="pageNumber" class="mr-5 pageNumber page${i}" data-page-num="${i}">${i}</a>
+				</c:forEach>
+				<c:if test="${pageMaker.next ne false}">
+					<a href="/group/group_list_view?page=${pageMaker.endPage + 1}">[다음]</a>
+				</c:if>
+			</div>
 		</div>
 		<c:if test="${authorityGroup == 'WR'}">
 			<div class="buttonLine">
@@ -44,6 +55,10 @@
 		// left menu setting
 		$('.nav-links a').removeClass('active');
 		$('.links_name_Group').addClass('active');
+		
+		// 현재 페이지 번호 표시(bold)
+		let pageNum = ${paging.page};
+		$('.page' + pageNum).addClass('font-weight-bold');
 		
 		// 등록화면으로 이동
 		$('.groupRegistViewBtn').on('click', function() {

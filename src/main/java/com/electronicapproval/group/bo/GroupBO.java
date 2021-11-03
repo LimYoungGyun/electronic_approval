@@ -13,9 +13,17 @@ public class GroupBO {
 	
 	@Autowired
 	private GroupDAO groupDAO;
+	
+	public List<Group> getGroupListPage(int startRow, int endRow) {
+		return groupDAO.selectGroupListPage(startRow, endRow);
+	}
 
 	public List<Group> getGroupList() {
 		return groupDAO.selectGroupList();
+	}
+	
+	public int getGroupListCount() {
+		return groupDAO.selectGroupListCount();
 	}
 	
 	public Group getGroupById(int id) {

@@ -42,13 +42,21 @@ public class EmployeeBO {
 		return employeeDAO.selectEmployeeList();
 	}
 	
-	public List<EmployeeInfoView> employeeInfoViewList() {
+	public List<Employee> getEmployeeListPage(int startRow, int endRow) {
+		return employeeDAO.selectEmployeeListPage(startRow, endRow);
+	}
+	
+	public int getEmployeeListCount() {
+		return employeeDAO.selectEmployeeListCount();
+	}
+	
+	public List<EmployeeInfoView> employeeInfoViewList(int startRow, int endRow) {
 		
 		// 전체 내용 저장할 List
 		List<EmployeeInfoView> employeeInfoViewList = new ArrayList<>();
 		
 		// 한 행이 출력할 정보 저장용 List
-		List<Employee> employeeList = getEmployeeList();
+		List<Employee> employeeList = getEmployeeListPage(startRow, endRow);
 		for (Employee employee : employeeList) {
 			
 			// 전체 내용을 저장할 객체.

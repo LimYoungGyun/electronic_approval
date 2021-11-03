@@ -29,6 +29,99 @@
 		FROM
 			`employee`
 	</select>
+	
+	<select id="selectEmployeeListPage" resultType="com.electronicapproval.employee.model.Employee">
+		SELECT
+			`ROWNUM`
+			, `id`
+			, `name`
+			, `email`
+			, `password`
+			, `residentNumber`
+			, `dateHired`
+			, `totAnnualLeave`
+			, `useAnnualLeave`
+			, `remainAnnualLeave`
+			, `groupId`
+			, `positionId`
+			, `officialId`
+			, `annualIncome`
+			, `salary`
+			, `profilePath`
+			, `authorityPost`
+			, `authorityGroup`
+			, `authorityEmployee`
+			, `authorityCommute`
+			, `authorityForm`
+			, `createdAt`
+			, `updatedAt`
+		FROM 
+			(
+				SELECT
+					@ROWNUM:=@ROWNUM+1 AS `ROWNUM`
+					, `id`
+					, `name`
+					, `email`
+					, `password`
+					, `residentNumber`
+					, `dateHired`
+					, `totAnnualLeave`
+					, `useAnnualLeave`
+					, `remainAnnualLeave`
+					, `groupId`
+					, `positionId`
+					, `officialId`
+					, `annualIncome`
+					, `salary`
+					, `profilePath`
+					, `authorityPost`
+					, `authorityGroup`
+					, `authorityEmployee`
+					, `authorityCommute`
+					, `authorityForm`
+					, `createdAt`
+					, `updatedAt`
+				FROM
+					(
+						SELECT
+							@ROWNUM:=0 AS `ROWNUM`
+							, `id`
+							, `name`
+							, `email`
+							, `password`
+							, `residentNumber`
+							, `dateHired`
+							, `totAnnualLeave`
+							, `useAnnualLeave`
+							, `remainAnnualLeave`
+							, `groupId`
+							, `positionId`
+							, `officialId`
+							, `annualIncome`
+							, `salary`
+							, `profilePath`
+							, `authorityPost`
+							, `authorityGroup`
+							, `authorityEmployee`
+							, `authorityCommute`
+							, `authorityForm`
+							, `createdAt`
+							, `updatedAt`
+						FROM
+							`employee`
+					) TEMP
+			) PAGING
+		WHERE
+			`ROWNUM` BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="selectEmployeeListCount" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			`employee`
+	</select>
+	
 	<select id="selectEmployeeByEmailAndPassword" parameterType="map" resultType="com.electronicapproval.employee.model.Employee">
 		SELECT
 			`id`
@@ -59,6 +152,7 @@
 			`email` = #{email}
 			AND `password` = #{password}
 	</select>
+	
 	<select id="selectEmployeeById" parameterType="int" resultType="com.electronicapproval.employee.model.Employee">
 		SELECT
 			`id`
@@ -88,6 +182,7 @@
 		WHERE
 			`id` = #{id}
 	</select>
+	
 	<insert id="insertEmployeeInsert" parameterType="com.electronicapproval.employee.model.Employee">
 		INSERT INTO `employee`
 		(

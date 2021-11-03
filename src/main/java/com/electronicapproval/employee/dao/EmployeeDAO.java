@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.electronicapproval.employee.model.Employee;
 
@@ -12,6 +11,12 @@ import com.electronicapproval.employee.model.Employee;
 public interface EmployeeDAO {
 	
 	public List<Employee> selectEmployeeList();
+	
+	public List<Employee> selectEmployeeListPage(
+			@Param("startRow") int startRow
+			, @Param("endRow") int endRow);
+	
+	public int selectEmployeeListCount();
 	
 	public Employee selectEmployeeByEmailAndPassword(
 			@Param("email") String email

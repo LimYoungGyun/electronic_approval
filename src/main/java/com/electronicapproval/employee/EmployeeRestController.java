@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.electronicapproval.common.EncryptUtils;
-import com.electronicapproval.common.FileManagerService;
 import com.electronicapproval.employee.bo.EmployeeBO;
 import com.electronicapproval.employee.model.Employee;
-import com.electronicapproval.employee.model.EmployeeInfoView;
 
 @RestController
 @RequestMapping("/employee")

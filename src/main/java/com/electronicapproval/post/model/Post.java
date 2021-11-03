@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class Post {
 
+	private int ROWNUM;
 	private int id;
 	private int employeeId;
 	private String title;

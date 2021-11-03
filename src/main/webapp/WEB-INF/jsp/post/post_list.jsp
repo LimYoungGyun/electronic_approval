@@ -2,11 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!-- <link rel="stylesheet" href="/static/css/common.css"> -->
 <link rel="stylesheet" href="/static/css/post.css">
 <div class="page-content-size">
 	<div class="contents box">
-<!-- 		<div class="title">공지사항</div> -->
 		<div class="content">
 			<table id="tableList" class="table table-hover text-center">
 				<thead>
@@ -19,9 +17,9 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${postList}" var="post" varStatus="status">
+					<c:forEach items="${postListPage}" var="post" varStatus="status">
 						<tr>
-							<td>${postList.size() - (status.count - 1)}</td>
+							<td>${paging.totalArticle - ((paging.page - 1) * paging.pageSize) - status.index}</td>
 							<td class="text-left">${post.title}</td>
 							<td>${emoployeeList.get(status.index)}</td>
 							<td><fmt:formatDate value="${post.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss" var="updatedAt"/>${updatedAt}</td>
@@ -30,6 +28,17 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<div class="paging d-flex justify-content-center mt-5">
+				<c:if test="${pageMaker.prev ne false}">
+					<a href="/post/post_list_view?page=${pageMaker.startPage - 1}" class="mr-5">[이전]</a>
+				</c:if>
+				<c:forEach var="i" begin="${pageMaker.startPage}" end="${pageMaker.endPage}" step="1">
+					<a href="/post/post_list_view?page=${i}" id="pageNumber" class="mr-5 pageNumber page${i}" data-page-num="${i}">${i}</a>
+				</c:forEach>
+				<c:if test="${pageMaker.next ne false}">
+					<a href="/post/post_list_view?page=${pageMaker.endPage + 1}">[다음]</a>
+				</c:if>
+			</div>
 		</div>
 		<c:if test="${authorityPost == 'WR'}">
 			<div class="buttonLine">
@@ -46,6 +55,10 @@
 		// left menu setting
 		$('.nav-links a').removeClass('active');
 		$('.links_name_Dashboard').addClass('active');
+		
+		// 현재 페이지 번호 표시(bold)
+		let pageNum = ${paging.page};
+		$('.page' + pageNum).addClass('font-weight-bold');
 		
 		// 등록화면으로 이동
 		$('.postRegistViewBtn').on('click', function() {
@@ -69,8 +82,6 @@
 				return;
 			}
 			
-			console.log(postId);
-
 			location.href='/post/post_detail_view?postId='+postId;
 		});
 		

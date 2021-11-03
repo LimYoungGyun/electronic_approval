@@ -27,8 +27,12 @@ public class PostBO {
 	@Autowired
 	private FileBO fileBO;
 	
-	public List<Post> getPostList() {
-		return postDAO.selectPostList();
+	public List<Post> getPostListPage(int startRow, int endRow) {
+		return postDAO.selectPostListPage(startRow, endRow);
+	}
+	
+	public int getPostListCount() {
+		return postDAO.selectPostListCount();
 	}
 	
 	public List<Post> getPostListLimit5() {

@@ -2,14 +2,20 @@ package com.electronicapproval.post.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.electronicapproval.post.model.Post;
 
 @Repository
 public interface PostDAO {
+	
+	// page
+	public List<Post> selectPostListPage(
+			@Param("startRow") int startRow
+			, @Param("endRow") int endRow);
 
-	public List<Post> selectPostList();
+	public int selectPostListCount();
 	
 	public List<Post> selectPostListLimit5();
 	

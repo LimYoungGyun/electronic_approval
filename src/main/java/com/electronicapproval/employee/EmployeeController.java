@@ -54,7 +54,7 @@ public class EmployeeController {
 			page = 0;
 		}
 		paging.setPage(page);
-		paging.setPageSize(1); // 한 페이지의 게시글 수
+		paging.setPageSize(10); // 한 페이지의 게시글 수
 		paging.setTotalArticle(employeeCount); // 전체 게시글 수
 		paging.setTotalPage(paging.getTotalArticle()); // 총 페이제 수
 		paging.setStartRow(paging.getPage());

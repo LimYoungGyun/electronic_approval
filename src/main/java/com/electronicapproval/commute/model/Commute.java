@@ -6,6 +6,8 @@ import lombok.Data;
 
 @Data
 public class Commute {
+	
+	private int ROWNUM;
 	private int id;
 	private int employeeId;
 	private int positionId;

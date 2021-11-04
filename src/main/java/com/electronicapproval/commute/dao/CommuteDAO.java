@@ -8,12 +8,21 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.electronicapproval.commute.model.Commute;
-import com.electronicapproval.employee.model.Employee;
 
 @Repository
 public interface CommuteDAO {
 
-	public List<Commute> getCommuteList(
+	public List<Commute> selectCommuteListPage(
+			@Param("startDate") String startDate
+			, @Param("endDate") String endDate
+			, @Param("startRow") int startRow
+			, @Param("endRow") int endRow);
+	
+	public List<Commute> selectCommuteList(
+			@Param("startDate") String startDate
+			, @Param("endDate") String endDate);
+	
+	public int selectCommuteListCount(
 			@Param("startDate") String startDate
 			, @Param("endDate") String endDate);
 	

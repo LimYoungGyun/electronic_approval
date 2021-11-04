@@ -1,6 +1,5 @@
 package com.electronicapproval.commute.bo;
 
-import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -31,11 +30,11 @@ public class CommuteBO {
 	@Autowired
 	private PositionBO positionBO;
 
-	public List<CommuteInfoView> getCommuteList(String startDate, String endDate) {
+	public List<CommuteInfoView> getCommuteListPage(String startDate, String endDate, int startRow, int endRow) {
 		
 		List<CommuteInfoView> commuteInfoViewList = new ArrayList<>();
 		
-		List<Commute> commuteList = commuteDAO.getCommuteList(startDate, endDate);
+		List<Commute> commuteList = commuteDAO.selectCommuteListPage(startDate, endDate, startRow, endRow);
 		for (Commute commute : commuteList) {
 			CommuteInfoView commuteInfoView = new CommuteInfoView();
 			
@@ -51,6 +50,32 @@ public class CommuteBO {
 		}
 		
 		return commuteInfoViewList;
+	}
+	
+	public List<CommuteInfoView> getCommuteList(String startDate, String endDate) {
+		
+		List<CommuteInfoView> commuteInfoViewList = new ArrayList<>();
+		
+		List<Commute> commuteList = commuteDAO.selectCommuteList(startDate, endDate);
+		for (Commute commute : commuteList) {
+			CommuteInfoView commuteInfoView = new CommuteInfoView();
+			
+			commuteInfoView.setCommute(commute);
+			
+			Employee employee = employeeBO.getEmployeeById(commute.getEmployeeId());
+			commuteInfoView.setEmployee(employee);
+			
+			Position position = positionBO.getPositionById(commute.getPositionId());
+			commuteInfoView.setPosition(position);
+			
+			commuteInfoViewList.add(commuteInfoView);
+		}
+		
+		return commuteInfoViewList;
+	}
+	
+	public int getCommuteListCount(String startDate, String endDate) {
+		return commuteDAO.selectCommuteListCount(startDate, endDate);
 	}
 	
 	public Commute getCommuteById(int employeeId) {
@@ -88,6 +113,8 @@ public class CommuteBO {
 		// 야근시간
 		Duration duration = Duration.between(attendanceTime, getquittingTime);
 		
+		
+		// 다른 메소드로 처리
 		String overTime = "";
 		if (duration.getSeconds() <= 0) {
 			overTime = "-";

@@ -10,9 +10,6 @@
 				<label for="date">날짜 : </label>
 				<input type="text" id="date" name="date" class="form-control date" value="${searchDate}" readonly>
 			</div>
-<%-- 			오늘 날짜 : ${startDate}<br> --%>
-<%-- 			내일 날짜 : ${endDate} --%>
-			
 			<table id="tableList" class="table table-hover text-center">
 				<thead>
 					<tr>
@@ -39,6 +36,17 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<div class="paging d-flex justify-content-center mt-5">
+				<c:if test="${pageMaker.prev ne false}">
+					<a href="/commute/commute_list_view?page=${pageMaker.startPage - 1}" class="mr-5">[이전]</a>
+				</c:if>
+				<c:forEach var="i" begin="${pageMaker.startPage}" end="${pageMaker.endPage}" step="1">
+					<a href="/commute/commute_list_view?page=${i}" id="pageNumber" class="mr-5 pageNumber page${i}" data-page-num="${i}">${i}</a>
+				</c:forEach>
+				<c:if test="${pageMaker.next ne false}">
+					<a href="/commute/commute_list_view?page=${pageMaker.endPage + 1}">[다음]</a>
+				</c:if>
+			</div>
 		</div>
 	</div>
 </div>
@@ -50,6 +58,10 @@
 		// left menu setting
 		$('.nav-links a').removeClass('active');
 		$('.links_name_Commute').addClass('active');
+		
+		// 현재 페이지 번호 표시(bold)
+		let pageNum = ${paging.page};
+		$('.page' + pageNum).addClass('font-weight-bold');
 		
 		$( "#date" ).datepicker({
 			dateFormat: 'yy-mm-dd'

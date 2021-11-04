@@ -3,7 +3,55 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.electronicapproval.commute.dao.CommuteDAO">
 	
-	<select id="getCommuteList" parameterType="map" resultType="com.electronicapproval.commute.model.Commute">
+	<select id="selectCommuteListPage" parameterType="map" resultType="com.electronicapproval.commute.model.Commute">
+		SELECT
+			`ROWNUM`
+			, `id`
+			, `employeeId`
+			, `positionId`
+			, `attendanceTime`
+			, `quittingTime`
+			, `overTime`
+			, `createdAt`
+			, `updatedAt`
+		FROM 
+			(
+				SELECT
+					@ROWNUM:=@ROWNUM+1 AS ROWNUM
+					, `id`
+					, `employeeId`
+					, `positionId`
+					, `attendanceTime`
+					, `quittingTime`
+					, `overTime`
+					, `createdAt`
+					, `updatedAt`
+				FROM
+					(
+						SELECT
+							@ROWNUM:=0 AS ROWNUM
+							, `id`
+							, `employeeId`
+							, `positionId`
+							, `attendanceTime`
+							, `quittingTime`
+							, `overTime`
+							, `createdAt`
+							, `updatedAt`
+						FROM
+							`commute`
+						ORDER BY `id` DESC 
+					) TEMP
+			) PAGING
+		WHERE
+			`ROWNUM` BETWEEN #{startRow} AND #{endRow}
+		<![CDATA[
+			AND `createdAt` >= #{startDate}
+			AND `createdAt` < #{endDate}
+		]]>
+	</select>
+	
+	<select id="selectCommuteList" parameterType="map" resultType="com.electronicapproval.commute.model.Commute">
 		SELECT
 			`id`
 			, `employeeId`
@@ -13,6 +61,18 @@
 			, `overTime`
 			, `createdAt`
 			, `updatedAt`
+		FROM
+			`commute`
+		WHERE
+		<![CDATA[
+			`createdAt` >= #{startDate}
+			AND `createdAt` < #{endDate}
+		]]>
+	</select>
+	
+	<select id="selectCommuteListCount" resultType="int">
+		SELECT
+			count(1)
 		FROM
 			`commute`
 		WHERE

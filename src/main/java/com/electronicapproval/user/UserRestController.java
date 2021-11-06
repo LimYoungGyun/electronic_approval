@@ -81,11 +81,13 @@ public class UserRestController {
 			session.setAttribute("employeeEmail", employee.getEmail());
 			session.setAttribute("profilePath", employee.getProfilePath());
 			session.setAttribute("employeeName", employee.getName());
+			session.setAttribute("employeeGroupId", employee.getGroupId());
 			session.setAttribute("employeePosition", employeePosition.getName());
 			session.setAttribute("authorityPost", employee.getAuthorityPost());
 			session.setAttribute("authorityGroup", employee.getAuthorityGroup());
 			session.setAttribute("authorityEmployee", employee.getAuthorityEmployee());
 			session.setAttribute("authorityCommute", employee.getAuthorityCommute());
+			session.setAttribute("authorityForm", employee.getAuthorityForm());
 			
 			
 			result.put("result", "success");

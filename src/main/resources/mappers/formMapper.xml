@@ -5,6 +5,80 @@
 	
 	<select id="selectFormListByEmployeeId" parameterType="map" resultType="com.electronicapproval.form.model.Form">
 		SELECT
+			`ROWNUM`
+			, `id`
+			, `employeeId`
+			, `positionId`
+			, `count`
+			, `startDate`
+			, `endDate`
+			, `sendTo`
+			, `status`
+			, `content`
+			, `reContent`
+			, `createdAt`
+			, `updatedAt`
+		FROM 
+			(
+				SELECT
+					@ROWNUM:=@ROWNUM+1 AS ROWNUM
+					, `id`
+					, `employeeId`
+					, `positionId`
+					, `count`
+					, `startDate`
+					, `endDate`
+					, `sendTo`
+					, `status`
+					, `content`
+					, `reContent`
+					, `createdAt`
+					, `updatedAt`
+				FROM
+					(
+						SELECT
+							@ROWNUM:=0 AS ROWNUM
+							, `id`
+							, `employeeId`
+							, `positionId`
+							, `count`
+							, `startDate`
+							, `endDate`
+							, `sendTo`
+							, `status`
+							, `content`
+							, `reContent`
+							, `createdAt`
+							, `updatedAt`
+						FROM
+							`form`
+						WHERE
+							`employeeId` = #{employeeId}
+							<if test="officialId != null">
+								OR `sendTo` = #{employeeId}
+							</if>
+						ORDER BY `updatedAt` DESC 
+					) TEMP
+			) PAGING
+		WHERE
+			`ROWNUM` BETWEEN #{startRow} AND #{endRow}
+			ORDER BY `updatedAt` DESC
+	</select>
+	
+	<select id="selectFromListCount" parameterType="map" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			`form`
+		WHERE
+			`employeeId` = #{employeeId}
+			<if test="officialId != null">
+				OR `sendTo` = #{employeeId}
+			</if>
+	</select>
+	
+	<select id="selectFormByFormId" parameterType="int" resultType="com.electronicapproval.form.model.Form">
+		SELECT
 			`id`
 			, `employeeId`
 			, `positionId`
@@ -13,15 +87,79 @@
 			, `endDate`
 			, `sendTo`
 			, `status`
+			, `content`
+			, `reContent`
 			, `createdAt`
 			, `updatedAt`
 		FROM
 			`form`
 		WHERE
-			`employeeId` = #{employeeId}
-			<if test="officialId != null">
-				OR `sendTo` = #{employeeId}
-			</if>
-		ORDER BY `id` DESC
+			`id` = #{id}
 	</select>
+	
+	<insert id="insertFrom" parameterType="com.electronicapproval.form.model.Form">
+		INSERT INTO `form`
+		(
+			`employeeId`
+			, `positionId`
+			, `count`
+			, `startDate`
+			, `endDate`
+			, `sendTo`
+			, `status`
+			, `content`
+<!-- 			, `reContent` -->
+			, `createdAt`
+			, `updatedAt`
+		)
+		VALUES
+		(
+			#{employeeId}
+			, #{positionId}
+			, #{count}
+			, #{startDate}
+			, #{endDate}
+			, #{sendTo}
+			, #{status}
+			, #{content}
+<!-- 			, #{reContent} -->
+			, NOW()
+			, NOW()
+		)
+	</insert>
+	
+	<update id="updateFormDisapproval" parameterType="map">
+		UPDATE
+			`form`
+		SET
+			`status` = #{status}
+			, `reContent` = #{reContent}
+		WHERE
+			`id` = #{id}
+	</update>
+	
+	<update id="updateFormApproval" parameterType="map">
+		UPDATE
+			`form`
+		SET
+			`status` = #{status}
+		WHERE
+			`id` = #{id}
+	</update>
+	
+	<update id="updateForm" parameterType="com.electronicapproval.form.model.Form">
+		UPDATE
+			`form`
+		SET
+			`count` = #{count}
+			, `startDate` = #{startDate}
+			, `endDate` = #{endDate}
+			, `sendTo` = #{sendTo}
+			, `status` = #{status}
+			, `content` = #{content}
+			, `reContent` = #{reContent}
+			, `updatedAt` = NOW()
+		WHERE
+			`id` = #{id}
+	</update>
 </mapper>

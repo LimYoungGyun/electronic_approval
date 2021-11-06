@@ -7,7 +7,7 @@
 <script src="/static/js/common.js"></script>
 <div class="page-content-size">
 	<div class="contents box">
-		<form id="formInsertForm" action="/form/form_insert" method="POST">
+		<form id="formUpdateForm" action="/form/form_insert" method="POST">
 			<div class="content">
 				<div class="inputcontent">
 					<div class="form-left">
@@ -31,29 +31,35 @@
 					</div>
 					<div class="form-right">
 						<label for="count">사용 연차 수</label>
-						<input type="text" id="count" name="count" class="count form-control" value="0" disabled>
+						<input type="text" id="count" name="count" class="count form-control" value="${form.count}" disabled>
 					</div>
 				</div>
 				<div class="inputcontent">
 					<div class="form-left">
 						<label for="useAnnualLeave">시작 일자</label>
-						<input type="text" id="startDate" name="startDate" class="startDate form-control date" autocomplete="off" required>
+						<input type="text" id="startDate" name="startDate" class="startDate form-control date" value="${form.startDate}" autocomplete="off" required>
 					</div>
 					<div class="form-right">
 						<label for="remainAnnualLeave">종료 일자</label>
-						<input type="text" id="endDate" name="endDate" class="endDate form-control date" autocomplete="off" required>
+						<input type="text" id="endDate" name="endDate" class="endDate form-control date" value="${form.endDate}" autocomplete="off" required>
 					</div>
 				</div>
 				<div class="inputcontent">
 					<div class="form-left">
 						<label for="content">내용</label>
-						<textarea rows="8" cols="" id="content" name="content" class="content form-control"></textarea>
+						<textarea rows="8" cols="" id="content" name="content" class="content form-control">${form.content}</textarea>
+					</div>
+				</div>
+				<div class="inputcontent">
+					<div class="form-left">
+						<label for="reContent">반려 사유</label>
+						<textarea rows="5" cols="" id="reContent" name="reContent" class="content form-control">${form.reContent}</textarea>
 					</div>
 				</div>
 			</div>
 			<div class="buttonLine inputpage">
 				<button type="button" class="formListBtn btn btn-secondary">목록</button>
-				<button type="submit" class="formRegistViewBtn btn btn-success" data-employee-id="${employeeId}">등록</button>
+				<button type="submit" class="formUpdateBtn btn btn-success" data-form-id="${form.id}">수정</button>
 			</div>
 		</form>
 	</div>
@@ -66,6 +72,9 @@
 		// left menu setting
 		$('.nav-links a').removeClass('active');
 		$('.links_name_Form').addClass('active');
+		
+		// 발신자명 데이터 선택.
+		$('#sendTo').val(${form.sendTo});
 		
 		$.datepicker.setDefaults({
 			dateFormat: 'yy-mm-dd'
@@ -140,41 +149,41 @@
 			location.href='/form/form_list_view';
 		});
 		
-		// 등록
-		let data = $('#formInsertForm').serialize();
-		$('#formInsertForm').submit(function(e) {
+		// 수정
+		$('#formUpdateForm').submit(function(e) {
 			e.preventDefault();
 
-			let employeeId = $('.formRegistViewBtn').data('employee-id'); // 등록자 ID
-			let sendTo = $('#sendTo').val(); // 발신자 직원 Id
+			let formId = $('.formUpdateBtn').data('form-id'); // 등록자 ID
 			let count = $('#count').val(); // 사용 연차수
 			let startDate = $('#startDate').val(); // 시작 일자
 			let endDate = $('#endDate').val(); // 종료 일자
+			let sendTo = $('#sendTo').val(); // 발신자 직원 Id
 			let content = $('#content').val(); // 내용
 			
 			$.ajax({
-				type:'POST'
-				, url : '/form/form_insert'
+				type:'PUT'
+				, url : '/form/form_update'
 				, data : {
-					'employeeId' : employeeId // 게시물 작성자 employeeId
-					, 'sendTo' : sendTo // 발신자 직원 Id
+					'id' : formId // 게시물 작성자 employeeId
 					, 'count' : count // 연차 개수
 					, 'startDate' : startDate // 연차 시작 일자
 					, 'endDate' : endDate // 연차 종료 일자
+					, 'sendTo' : sendTo // 발신자 직원 Id
 					, 'content' : content // 연차 시 입력 내용
 				}
 				, success : function(data) {
 					if (data.result == 'success') {
-						alert('기안서 등록이 완료되었습니다.');
+						alert('기안서 수정이 완료되었습니다.');
 						location.href="/form/form_list_view";
 					} else {
-						alert('기안서 등록에 실패하였습니다.');
+						alert('기안서 수정에 실패하였습니다.');
 					}
 				}
 				, error : function(e) {
-					alert('기안서 등록 에러발생 : ' + e);
+					alert('기안서 수정 에러발생 : ' + e);
 				}
 			});
 		});
+		
 	});
 </script>

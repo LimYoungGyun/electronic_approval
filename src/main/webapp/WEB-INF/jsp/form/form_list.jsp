@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<link rel="stylesheet" href="/static/css/employee.css">
+<link rel="stylesheet" href="/static/css/form.css">
 <div class="page-content-size">
 	<div class="contents box">
 		<div class="content">
@@ -23,12 +23,13 @@
 				<tbody>
 					<c:forEach items="${formInfoViewList}" var="form" varStatus="status">
 						<tr>
-							<td>${formInfoViewList.size() - (status.count - 1)}</td>
+<%-- 							<td>${formInfoViewList.size() - (status.count - 1)}</td> --%>
+							<td>${paging.totalArticle - ((paging.page - 1) * paging.pageSize) - status.index}</td>
 							<td>${form.employee.name}</td>
 							<td>${form.position.name}</td>
 							<td>${form.form.count}</td>
-							<td><fmt:formatDate value="${form.form.startDate}" pattern="yyyy-MM-dd" var="startDate"/>${startDate}</td>
-							<td><fmt:formatDate value="${form.form.endDate}" pattern="yyyy-MM-dd" var="endDate"/>${endDate}</td>
+							<td>${form.form.startDate}</td>
+							<td>${form.form.startDate}</td>
 							<td>${form.form.status}</td>
 							<td><fmt:formatDate value="${form.form.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" var="createdAt"/>${createdAt}</td>
 							<td class="d-none">${form.form.id}</td>
@@ -36,6 +37,17 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<div class="paging d-flex justify-content-center mt-5">
+				<c:if test="${pageMaker.prev ne false}">
+					<a href="/form/form_list_view?page=${pageMaker.startPage - 1}" class="mr-5">[이전]</a>
+				</c:if>
+				<c:forEach var="i" begin="${pageMaker.startPage}" end="${pageMaker.endPage}" step="1">
+					<a href="/form/form_list_view?page=${i}" id="pageNumber" class="mr-5 pageNumber page${i}" data-page-num="${i}">${i}</a>
+				</c:forEach>
+				<c:if test="${pageMaker.next ne false}">
+					<a href="/form/form_list_view?page=${pageMaker.endPage + 1}">[다음]</a>
+				</c:if>
+			</div>
 		</div>
 		<div class="buttonLine">
 			<button type="button" class="formRegistViewBtn btn btn-success">등록</button>
@@ -51,6 +63,10 @@
 		$('.nav-links a').removeClass('active');
 		$('.links_name_Form').addClass('active');
 		
+		// 현재 페이지 번호 표시(bold)
+		let pageNum = ${paging.page};
+		$('.page' + pageNum).addClass('font-weight-bold');
+		
 		// 등록화면으로 이동
 		$('.formRegistViewBtn').on('click', function() {
 			location.href = '/form/form_insert_view';
@@ -58,23 +74,23 @@
 		
 		// 상세화면으로 이동
 		// row 데이터 가져오기
-// 		$("#tableList tr").click(function(){ 	
-// 			let str = '';
+		$("#tableList tr").click(function(){ 	
+			let str = '';
 			
-// 			// 현재 클릭된 Row(<tr>)
-// 			let tr = $(this);
-// 			let td = tr.children();
+			// 현재 클릭된 Row(<tr>)
+			let tr = $(this);
+			let td = tr.children();
 			
-// 			// td.eq(index)를 통해 값을 가져올 수도 있다.
-// 			let employeeId = td.eq(7).text();
+			// td.eq(index)를 통해 값을 가져올 수도 있다.
+			let formId = td.eq(8).text();
 			
-// 			// 숫자가 아닌값 확인.
-// 			if (!$.isNumeric(employeeId)) {
-// 				return;
-// 			}
+			// 숫자가 아닌값 확인.
+			if (!$.isNumeric(formId)) {
+				return;
+			}
 			
-// 			location.href='/employee/employee_detail_view?employeeId='+employeeId;
-// 		});
+			location.href='/form/form_detail_view?formId='+ formId;
+		});
 		
 	});
 </script>

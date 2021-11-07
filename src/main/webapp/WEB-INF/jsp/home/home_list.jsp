@@ -82,8 +82,12 @@
 					<c:if test="${empty commuteInfoView.commute.attendanceTime}">
 						<td>-</td>
 					</c:if>
-<%-- 						<td class="attendanceTime"><fmt:formatDate value="${commuteInfoView.commute.attendanceTime}" pattern="HH:mm:ss" var="attendanceTime"/>${attendanceTime}</td> --%>
-					<td class="quittingTime"><fmt:formatDate value="${commuteInfoView.commute.quittingTime}" pattern="HH:mm:ss" var="quittingTime"/>${quittingTime}</td>
+					<c:if test="${not empty commuteInfoView.commute.quittingTime}">
+						<td>퇴근</td>
+					</c:if>
+					<c:if test="${empty commuteInfoView.commute.quittingTime}">
+						<td>-</td>
+					</c:if>
 				</tr>
 			</c:forEach>
 		</tbody>

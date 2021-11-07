@@ -55,6 +55,33 @@ public class FormBO {
 		return formInfoViewList;
 	}
 	
+	public List<FormInfoView> getFormListByGroupIdAndNowDate(int groupId, String nowDate) {
+		
+		List<FormInfoView> formInfoViewList = new ArrayList<>();
+		List<Form> formList = new ArrayList<>();
+		
+		String status = "승인";
+		
+		formList = formDAO.selectFormListByGroupIdAndNowDate(groupId, nowDate, status);
+		
+		for (Form form : formList) {
+			FormInfoView formInfoView = new FormInfoView();
+			
+			// 기안서
+			formInfoView.setForm(form);
+			
+			// 직원 정보
+			formInfoView.setEmployee(employeeBO.getEmployeeById(form.getEmployeeId()));
+			
+			// 직급
+			formInfoView.setPosition(positionBO.getPositionById(form.getPositionId()));
+			
+			formInfoViewList.add(formInfoView);
+		}
+		
+		return formInfoViewList;
+	}
+	
 	public int getFromListCount(int employeeId) {
 		
 		Employee employee = employeeBO.getEmployeeById(employeeId);
@@ -70,6 +97,7 @@ public class FormBO {
 	public int addFrom(Form form) {
 		
 		Employee employee = employeeBO.getEmployeeById(form.getEmployeeId());
+		form.setGroupId(employee.getGroupId());
 		form.setPositionId(employee.getPositionId());
 		
 		return formDAO.insertFrom(form);

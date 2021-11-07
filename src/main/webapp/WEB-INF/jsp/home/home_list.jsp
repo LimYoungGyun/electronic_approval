@@ -32,40 +32,32 @@
 		</div>
 	</div>
 	<br>
-	<div class="contents box test1111">
-		<div class="title">휴가자 목록</div>
+	<div class="contents box tableFromList">
+		<div class="title"><a href="/form/form_list_view">휴가자 목록</a></div>
 		<div class="content">
-			<table class="table">
-				<tr>
-					<th>1</th>
-					<th>2</th>
-					<th>3</th>
-					<th>4</th>
-				</tr>
-				<tr>
-					<td>adf</td>
-					<td>adf</td>
-					<td>asd</td>
-					<td>asdf</td>
-				</tr>
-				<tr>
-					<td>adf</td>
-					<td>adf</td>
-					<td>asd</td>
-					<td>asdf</td>
-				</tr>
-				<tr>
-					<td>adf</td>
-					<td>adf</td>
-					<td>asd</td>
-					<td>asdf</td>
-				</tr>
-				<tr>
-					<td>adf</td>
-					<td>adf</td>
-					<td>asd</td>
-					<td>asdf</td>
-				</tr>
+			<table id="tableFromList" class="table table-hover text-center">
+				<thead>
+					<tr>
+						<th class="col-1" scope="col">번호</th>
+						<th class="col-3" scope="col">이름</th>
+						<th class="col-2" scope="col">직책</th>
+						<th class="col-3" scope="col">시작일자</th>
+						<th class="col-3" scope="col">종료일자</th>
+						<th class="col-3 d-none">id</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${formList}" var="form" varStatus="status">
+						<tr>
+							<td>${formList.size() - (status.count - 1)}</td>
+							<td>${form.employee.name}</td>
+							<td>${form.position.name}</td>
+							<td>${form.form.startDate}</td>
+							<td>${form.form.endDate}</td>
+							<td class="d-none">${form.form.id}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
 			</table>
 		</div>
 	</div>
@@ -105,7 +97,7 @@
 			$('a').removeClass('active');
 		}
 		
-		// 상세화면으로 이동
+		// 공지사항 상세화면으로 이동
 		// row 데이터 가져오기
 		$("#tableList tr").click(function(){ 	
 			let str = '';
@@ -125,6 +117,28 @@
 			console.log(postId);
 
 			location.href='/post/post_detail_view?postId='+postId;
+		});
+		
+		// 휴가자 상세화면으로 이동
+		// row 데이터 가져오기
+		$("#tableFromList tr").click(function(){ 	
+			let str = '';
+			
+			// 현재 클릭된 Row(<tr>)
+			let tr = $(this);
+			let td = tr.children();
+			
+			// td.eq(index)를 통해 값을 가져올 수도 있다.
+			let formId = td.eq(5).text();
+			
+			// 숫자가 아닌값 확인.
+			if (!$.isNumeric(formId)) {
+				return;
+			}
+			
+			console.log(formId);
+			
+			location.href='/form/form_detail_view?formId='+formId;
 		});
 	});
 </script>

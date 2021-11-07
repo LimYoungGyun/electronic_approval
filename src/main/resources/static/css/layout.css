@@ -321,6 +321,15 @@ nav .profile-details i {
 	color: #333;
 	text-decoration: none;
 }
+.tableFromList {
+	overflow: auto;
+	height: 397px;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+.tableFromList::-webkit-scrollbar {
+	display: none;
+}
 /* left box */
 .home-content .main-content .contents {
 	/* width: 65%; */

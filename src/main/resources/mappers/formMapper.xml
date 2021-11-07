@@ -9,6 +9,7 @@
 			, `id`
 			, `employeeId`
 			, `positionId`
+			, `groupId`
 			, `count`
 			, `startDate`
 			, `endDate`
@@ -25,6 +26,7 @@
 					, `id`
 					, `employeeId`
 					, `positionId`
+					, `groupId`
 					, `count`
 					, `startDate`
 					, `endDate`
@@ -41,6 +43,7 @@
 							, `id`
 							, `employeeId`
 							, `positionId`
+							, `groupId`
 							, `count`
 							, `startDate`
 							, `endDate`
@@ -65,6 +68,32 @@
 			ORDER BY `updatedAt` DESC
 	</select>
 	
+	<select id="selectFormListByGroupIdAndNowDate" parameterType="map" resultType="com.electronicapproval.form.model.Form">
+		SELECT
+			`id`
+			, `employeeId`
+			, `positionId`
+			, `groupId`
+			, `count`
+			, `startDate`
+			, `endDate`
+			, `sendTo`
+			, `status`
+			, `content`
+			, `reContent`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`form`
+		WHERE
+			`groupId` = #{groupId}
+			AND `status` = #{status}
+			<![CDATA[
+				AND `startDate` <= #{nowDate}
+				AND `endDate` >= #{nowDate}
+			]]>
+	</select>
+	
 	<select id="selectFromListCount" parameterType="map" resultType="int">
 		SELECT
 			count(1)
@@ -82,6 +111,7 @@
 			`id`
 			, `employeeId`
 			, `positionId`
+			, `groupId`
 			, `count`
 			, `startDate`
 			, `endDate`
@@ -102,6 +132,7 @@
 		(
 			`employeeId`
 			, `positionId`
+			, `groupId`
 			, `count`
 			, `startDate`
 			, `endDate`
@@ -116,6 +147,7 @@
 		(
 			#{employeeId}
 			, #{positionId}
+			, #{groupId}
 			, #{count}
 			, #{startDate}
 			, #{endDate}

@@ -9,6 +9,7 @@ public class Form {
 	private int id; // 게시물 번호
 	private int employeeId; // 직원ID
 	private int positionId; // 직급ID
+	private int groupId; // 그룹Id
 	private int count; // 연차개수
 	private String startDate; // 연차 시작 일자
 	private String endDate; // 연차 종료 일자

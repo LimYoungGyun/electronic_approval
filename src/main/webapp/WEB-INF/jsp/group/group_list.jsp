@@ -17,15 +17,22 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${groupListPage}" var="group" varStatus="status">
+					<c:if test="${empty groupListPage}">
 						<tr>
-							<td>${((paging.page - 1) * paging.pageSize) + status.count}</td>
-							<td class="text-left">${group.topGroupName}</td>
-							<td class="text-left">${group.groupName}</td>
-							<td><fmt:formatDate value="${group.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss" var="updatedAt"/>${updatedAt}</td>
-							<td class="d-none">${group.id}</td>
+							<td colspan="4">조회된 그룹 정보가 없습니다.</td>
 						</tr>
-					</c:forEach>
+					</c:if>
+					<c:if test="${not empty groupListPage}">
+						<c:forEach items="${groupListPage}" var="group" varStatus="status">
+							<tr>
+								<td>${((paging.page - 1) * paging.pageSize) + status.count}</td>
+								<td class="text-left">${group.topGroupName}</td>
+								<td class="text-left">${group.groupName}</td>
+								<td><fmt:formatDate value="${group.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss" var="updatedAt"/>${updatedAt}</td>
+								<td class="d-none">${group.id}</td>
+							</tr>
+						</c:forEach>
+					</c:if>
 				</tbody>
 			</table>
 			<div class="paging d-flex justify-content-center mt-5">

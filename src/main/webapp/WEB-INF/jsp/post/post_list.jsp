@@ -17,15 +17,22 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${postListPage}" var="post" varStatus="status">
+					<c:if test="${empty postListPage}">
 						<tr>
-							<td>${paging.totalArticle - ((paging.page - 1) * paging.pageSize) - status.index}</td>
-							<td class="text-left">${post.title}</td>
-							<td>${emoployeeList.get(status.index)}</td>
-							<td><fmt:formatDate value="${post.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss" var="updatedAt"/>${updatedAt}</td>
-							<td class="d-none">${post.id}</td>
+							<td colspan="4">조회된 그룹 정보가 없습니다.</td>
 						</tr>
-					</c:forEach>
+					</c:if>
+					<c:if test="${not empty postListPage}">
+						<c:forEach items="${postListPage}" var="post" varStatus="status">
+							<tr>
+								<td>${paging.totalArticle - ((paging.page - 1) * paging.pageSize) - status.index}</td>
+								<td class="text-left">${post.title}</td>
+								<td>${emoployeeList.get(status.index)}</td>
+								<td><fmt:formatDate value="${post.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss" var="updatedAt"/>${updatedAt}</td>
+								<td class="d-none">${post.id}</td>
+							</tr>
+						</c:forEach>
+					</c:if>
 				</tbody>
 			</table>
 			<div class="paging d-flex justify-content-center mt-5">

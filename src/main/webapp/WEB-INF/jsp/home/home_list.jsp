@@ -18,15 +18,22 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${postList}" var="post" varStatus="status">
+					<c:if test="${empty postList}">
 						<tr>
-							<td>${postList.size() - (status.count - 1)}</td>
-							<td class="text-left">${post.title}</td>
-							<td>${emoployeeList.get(status.index)}</td>
-							<td><fmt:formatDate value="${post.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss" var="updatedAt"/>${updatedAt}</td>
-							<td class="d-none">${post.id}</td>
+							<td colspan="4">조회된 그룹 정보가 없습니다.</td>
 						</tr>
-					</c:forEach>
+					</c:if>
+					<c:if test="${not empty postList}">
+						<c:forEach items="${postList}" var="post" varStatus="status">
+							<tr>
+								<td>${postList.size() - (status.count - 1)}</td>
+								<td class="text-left">${post.title}</td>
+								<td>${emoployeeList.get(status.index)}</td>
+								<td><fmt:formatDate value="${post.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss" var="updatedAt"/>${updatedAt}</td>
+								<td class="d-none">${post.id}</td>
+							</tr>
+						</c:forEach>
+					</c:if>
 				</tbody>
 			</table>
 		</div>
@@ -47,23 +54,23 @@
 					</tr>
 				</thead>
 				<tbody>
-				<c:if test="${not empty formList}">
-					<c:forEach items="${formList}" var="form" varStatus="status">
+					<c:if test="${empty formList}">
 						<tr>
-							<td>${formList.size() - (status.count - 1)}</td>
-							<td>${form.employee.name}</td>
-							<td>${form.position.name}</td>
-							<td>${form.form.startDate}</td>
-							<td>${form.form.endDate}</td>
-							<td class="d-none">${form.form.id}</td>
+							<td colspan="5">조회된 휴가자가 없습니다.</td>
 						</tr>
-					</c:forEach>
-				</c:if>
-				<c:if test="${empty formList}">
-					<tr>
-						<td colspan="5">조회된 휴가자가 없습니다.</td>
-					</tr>
-				</c:if>
+					</c:if>
+					<c:if test="${not empty formList}">
+						<c:forEach items="${formList}" var="form" varStatus="status">
+							<tr>
+								<td>${formList.size() - (status.count - 1)}</td>
+								<td>${form.employee.name}</td>
+								<td>${form.position.name}</td>
+								<td>${form.form.startDate}</td>
+								<td>${form.form.endDate}</td>
+								<td class="d-none">${form.form.id}</td>
+							</tr>
+						</c:forEach>
+					</c:if>
 				</tbody>
 			</table>
 		</div>
@@ -80,23 +87,30 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${commuteInfoViewList}" var="commuteInfoView" varStatus="status">
+			<c:if test="${empty commuteInfoViewList}">
 				<tr>
-					<td>${commuteInfoView.employee.name}</td>
-					<c:if test="${not empty commuteInfoView.commute.attendanceTime}">
-						<td>출근</td>
-					</c:if>
-					<c:if test="${empty commuteInfoView.commute.attendanceTime}">
-						<td>-</td>
-					</c:if>
-					<c:if test="${not empty commuteInfoView.commute.quittingTime}">
-						<td>퇴근</td>
-					</c:if>
-					<c:if test="${empty commuteInfoView.commute.quittingTime}">
-						<td>-</td>
-					</c:if>
+					<td colspan="6">조회된 출퇴근 기록이 없습니다.</td>
 				</tr>
-			</c:forEach>
+			</c:if>
+			<c:if test="${not empty commuteInfoViewList}">
+				<c:forEach items="${commuteInfoViewList}" var="commuteInfoView" varStatus="status">
+					<tr>
+						<td>${commuteInfoView.employee.name}</td>
+						<c:if test="${not empty commuteInfoView.commute.attendanceTime}">
+							<td>출근</td>
+						</c:if>
+						<c:if test="${empty commuteInfoView.commute.attendanceTime}">
+							<td>-</td>
+						</c:if>
+						<c:if test="${not empty commuteInfoView.commute.quittingTime}">
+							<td>퇴근</td>
+						</c:if>
+						<c:if test="${empty commuteInfoView.commute.quittingTime}">
+							<td>-</td>
+						</c:if>
+					</tr>
+				</c:forEach>
+			</c:if>
 		</tbody>
 	</table>
 </div>

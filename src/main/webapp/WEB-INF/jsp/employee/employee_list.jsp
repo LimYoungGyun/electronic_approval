@@ -20,18 +20,25 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${employeeInfoViewList}" var="employeeInfoView" varStatus="status">
+					<c:if test="${empty employeeInfoViewList}">
 						<tr>
-							<td>${status.count}</td>
-							<td class="text-left">${employeeInfoView.employee.name}</td>
-							<td class="text-left">${employeeInfoView.employee.email}</td>
-							<td>${employeeInfoView.group.groupName}</td>
-							<td>${employeeInfoView.official.name}</td>
-							<td>${employeeInfoView.position.name}</td>
-							<td><fmt:formatDate value="${employeeInfoView.employee.updatedAt}" pattern="yyyy-MM-dd" var="updatedAt"/>${updatedAt}</td>
-							<td class="d-none">${employeeInfoView.employee.id}</td>
+							<td colspan="7">조회된 직원 정보가 없습니다.</td>
 						</tr>
-					</c:forEach>
+					</c:if>
+					<c:if test="${not empty employeeInfoViewList}">
+						<c:forEach items="${employeeInfoViewList}" var="employeeInfoView" varStatus="status">
+							<tr>
+								<td>${status.count}</td>
+								<td class="text-left">${employeeInfoView.employee.name}</td>
+								<td class="text-left">${employeeInfoView.employee.email}</td>
+								<td>${employeeInfoView.group.groupName}</td>
+								<td>${employeeInfoView.official.name}</td>
+								<td>${employeeInfoView.position.name}</td>
+								<td><fmt:formatDate value="${employeeInfoView.employee.updatedAt}" pattern="yyyy-MM-dd" var="updatedAt"/>${updatedAt}</td>
+								<td class="d-none">${employeeInfoView.employee.id}</td>
+							</tr>
+						</c:forEach>
+					</c:if>
 				</tbody>
 			</table>
 			<div class="paging d-flex justify-content-center mt-5">

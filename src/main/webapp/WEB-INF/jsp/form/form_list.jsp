@@ -21,18 +21,24 @@
 					</tr>
 				</thead>
 				<tbody>
+					<tr>
+						<c:if test="${empty formInfoViewList}">
+							<td colspan="8">기안서 관련 게시물이 존재하지 않습니다.</td>
+						</c:if>
+					</tr>
 					<c:forEach items="${formInfoViewList}" var="form" varStatus="status">
 						<tr>
-<%-- 							<td>${formInfoViewList.size() - (status.count - 1)}</td> --%>
-							<td>${paging.totalArticle - ((paging.page - 1) * paging.pageSize) - status.index}</td>
-							<td>${form.employee.name}</td>
-							<td>${form.position.name}</td>
-							<td>${form.form.count}</td>
-							<td>${form.form.startDate}</td>
-							<td>${form.form.startDate}</td>
-							<td>${form.form.status}</td>
-							<td><fmt:formatDate value="${form.form.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" var="createdAt"/>${createdAt}</td>
-							<td class="d-none">${form.form.id}</td>
+							<c:if test="${not empty formInfoViewList}">
+								<td>${paging.totalArticle - ((paging.page - 1) * paging.pageSize) - status.index}</td>
+								<td>${form.employee.name}</td>
+								<td>${form.position.name}</td>
+								<td>${form.form.count}</td>
+								<td>${form.form.startDate}</td>
+								<td>${form.form.startDate}</td>
+								<td>${form.form.status}</td>
+								<td><fmt:formatDate value="${form.form.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" var="createdAt"/>${createdAt}</td>
+								<td class="d-none">${form.form.id}</td>
+							</c:if>
 						</tr>
 					</c:forEach>
 				</tbody>

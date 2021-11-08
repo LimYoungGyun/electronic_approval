@@ -23,17 +23,24 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${commuteInfoViewList}" var="commuteInfoView" varStatus="status">
+					<c:if test="${empty commuteInfoViewList}">
 						<tr>
-							<td>${commuteInfoViewList.size() - (status.count - 1)}</td>
-							<td>${commuteInfoView.employee.name}</td>
-							<td>${commuteInfoView.position.name}</td>
-							<td class="attendanceTime"><fmt:formatDate value="${commuteInfoView.commute.attendanceTime}" pattern="yyyy-MM-dd HH:mm:ss" var="attendanceTime"/>${attendanceTime}</td>
-							<td class="quittingTime"><fmt:formatDate value="${commuteInfoView.commute.quittingTime}" pattern="yyyy-MM-dd HH:mm:ss" var="quittingTime"/>${quittingTime}</td>
-							<td class="overTime">${commuteInfoView.commute.overTime}</td>
-							<td class="d-none"></td>
+							<td colspan="6">조회된 출퇴근 기록이 없습니다.</td>
 						</tr>
-					</c:forEach>
+					</c:if>
+					<c:if test="${not empty commuteInfoViewList}">
+						<c:forEach items="${commuteInfoViewList}" var="commuteInfoView" varStatus="status">
+							<tr>
+								<td>${commuteInfoViewList.size() - (status.count - 1)}</td>
+								<td>${commuteInfoView.employee.name}</td>
+								<td>${commuteInfoView.position.name}</td>
+								<td class="attendanceTime"><fmt:formatDate value="${commuteInfoView.commute.attendanceTime}" pattern="yyyy-MM-dd HH:mm:ss" var="attendanceTime"/>${attendanceTime}</td>
+								<td class="quittingTime"><fmt:formatDate value="${commuteInfoView.commute.quittingTime}" pattern="yyyy-MM-dd HH:mm:ss" var="quittingTime"/>${quittingTime}</td>
+								<td class="overTime">${commuteInfoView.commute.overTime}</td>
+								<td class="d-none"></td>
+							</tr>
+						</c:forEach>
+					</c:if>
 				</tbody>
 			</table>
 			<div class="paging d-flex justify-content-center mt-5">

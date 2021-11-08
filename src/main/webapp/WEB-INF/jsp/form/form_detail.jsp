@@ -27,9 +27,7 @@
 					<td>${form.endDate}</td>
 				</tr>
 			</table>
-<%-- 			<c:if test="${form.status ne '반려'}"> --%>
-				<textarea id="content" name="content" class="form-control" rows="12" disabled>${form.content}</textarea>
-<%-- 			</c:if> --%>
+			<textarea id="content" name="content" class="form-control" rows="12" disabled>${form.content}</textarea>
 			<c:if test="${form.status eq '반려'}">
 				<label for="reContent">반려 사유</label>
 				<textarea id="reContent" name="reContent" class="form-control" rows="5" disabled>${form.reContent}</textarea>
@@ -45,7 +43,6 @@
 				<button type="button" class="formListBtn btn btn-secondary">목록</button>
 				<c:if test="${form.sendTo eq employeeId}">
 					<c:if test="${form.status eq '결재 요청'}">
-<%-- 						<button type="button" class="formDisapprovalBtn btn btn-danger" data-form-id="${form.id}">반려</button> --%>
 						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#disapprovalModal">반려</button>
 						<button type="button" class="formApprovalBtn btn btn-success" data-form-id="${form.id}">승인</button>
 					</c:if>
@@ -123,6 +120,11 @@
 		$('.formDisapprovalBtn').on('click', function() {
 			let formId = $(this).data('form-id');
 			let reContent = $('.reContent').val();
+			
+			if (reContent == '') {
+				alert('반려 내용을 입력해주세요.');
+				return;
+			}
 			
 			$.ajax({
 				type : 'PUT'

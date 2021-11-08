@@ -18,12 +18,6 @@
 		</div>
 	</div>
 </div>
-
-
-<!--   <button class="btn btn-secondary dropdown-toggle" type="button" id="topMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
-<!--     Dropdown -->
-<!--   </button> -->
-
 <script>
 	$(document).ready(function() {
 		let commuteStatus = ${commuteStatus};
@@ -50,7 +44,6 @@
 			});
 		});
 		$('#quittingTime').on('click', function() {
-			alert('퇴근!!! 버튼 기능 없어요');
 			let urlPath = window.location.pathname;
 			$.ajax({
 				type: 'PUT'

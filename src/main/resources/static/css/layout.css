@@ -242,10 +242,6 @@ nav .sidebar-button i {
 	font-size: 35px;
 	margin-right: 10px;
 }
-
-
-
-
 /* Top 출퇴근 버튼 추가 */
 .nav-line {
 	display: flex;
@@ -256,19 +252,6 @@ nav .sidebar-button i {
 	width: 90px;
 	height: 38px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 .home-section nav .profile-details {
 	display: flex;
 	align-items: center;

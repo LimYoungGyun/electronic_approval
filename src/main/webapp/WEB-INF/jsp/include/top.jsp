@@ -6,11 +6,24 @@
 <div class="nav-line">
 	<button id="attendanceTime" class="btn btn-primary">출근</button>
 	<button id="quittingTime" class="btn btn-primary d-none">퇴근</button>
-	<div class="profile-details">
-		<img src="${profilePath}" alt=""> 
-		<span class="employee_name"> ${employeeName} <${employeePosition}></span> <i class='bx bx-chevron-down'></i>
+	<div class="dropdown">
+		<div class="profile-details" id="topMenu" data-toggle="dropdown" aria-haspopup="true">
+			<img src="${profilePath}" alt=""> 
+			<span class="employee_name"> ${employeeName} <${employeePosition}></span> <i class='bx bx-chevron-down dropdown'></i>
+		</div>
+		<div class="dropdown-menu w-100" aria-labelledby="topMenu">
+			<a href="/employee/employee_detail_view?employeeId=${employeeId}"  class="down-menu" type="button">내 정보 보기</a>
+			<div class="dropdown-divider"></div>
+			<a href="/user/sign_out" class="down-menu" type="button">로그아웃</a>
+		</div>
 	</div>
 </div>
+
+
+<!--   <button class="btn btn-secondary dropdown-toggle" type="button" id="topMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+<!--     Dropdown -->
+<!--   </button> -->
+
 <script>
 	$(document).ready(function() {
 		let commuteStatus = ${commuteStatus};

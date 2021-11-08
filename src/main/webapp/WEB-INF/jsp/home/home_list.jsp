@@ -47,6 +47,7 @@
 					</tr>
 				</thead>
 				<tbody>
+				<c:if test="${not empty formList}">
 					<c:forEach items="${formList}" var="form" varStatus="status">
 						<tr>
 							<td>${formList.size() - (status.count - 1)}</td>
@@ -57,6 +58,12 @@
 							<td class="d-none">${form.form.id}</td>
 						</tr>
 					</c:forEach>
+				</c:if>
+				<c:if test="${empty formList}">
+					<tr>
+						<td colspan="5">조회된 휴가자가 없습니다.</td>
+					</tr>
+				</c:if>
 				</tbody>
 			</table>
 		</div>

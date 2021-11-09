@@ -75,6 +75,15 @@
 	display: flex;
 	justify-content: flex-end;
 }
+.buttonLine.pageLine {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+.buttonLine a {
+	text-decoration: none;
+	color: black;
+}
 .buttonLine.inputpage {
 	width: 70%;
 }

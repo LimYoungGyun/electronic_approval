@@ -5,10 +5,6 @@
 .page-content-size .contents .content {
 	display: block;
 }
-
-
-
-
 .dateSelect {
 	display: flex;
 	justify-content: flex-start;
@@ -22,22 +18,9 @@
 	width: 20%;
 	background: #fff;
 }
-
-
-
-
-
-
 .page-content-size table {
 	margin-top: 20px;
 }
-/* .page-content-size .contents .content input, */
-/* .page-content-size .contents .content select, */
-/* .page-content-size .contents .content textarea { */
-/* 	width: 70%; */
-/* 	margin-bottom: 20px; */
-/* 	resize: none; */
-/* } */
 .page-content-size .contents .content .detailTable {
 	width: 70%;
 }
@@ -52,9 +35,10 @@
 	background: #fff;
 	resize: none;
 }
-/* .page-content-size .contents .content .detailTable th{ */
-/* 	background: #808080; */
-/* } */
+.paging a {
+	text-decoration: none;
+	color: black;
+}
 .buttonLine {
 	width: 100%;
 	display: flex;
@@ -63,13 +47,6 @@
 .buttonLine.inputpage {
 	width: 70%;
 }
-/* .buttonLine .postRegistBtn, */
-/* .buttonLine .postDetailBtn, */
-/* .buttonLine .postRegistViewBtn { */
-/* 	margin-left: 20px; */
-/* 	width: 90px; */
-/* } */
-
 .buttonLine button {
 	margin-left: 20px;
 	width: 90px;

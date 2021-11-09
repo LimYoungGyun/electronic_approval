@@ -35,9 +35,7 @@
 .content .inputcontent .radioAreaGroup .radioArea label {
 	width: 30%;
 	margin: 0 0 0;
-/* 	height: 50px; */
 }
-
 .content .inputcontent .radioAreaGroup .radioArea span {
 	width: 40%;
 }
@@ -71,10 +69,7 @@
 .testImage{
 	width: 100%;
 	height: 100%;
-/* 	width: 163.42px; */
-/* 	height: 191px; */
 	object-fit: cover;
-
 }
 .page-content-size .contents .content textarea:disabled {
 	background: #fff;
@@ -109,10 +104,6 @@
 	margin-left: 10px;
 	margin-top: 35px;
 }
-
-/* .page-content-size .contents .content .detailTable th{ */
-/* 	background: #808080; */
-/* } */
 .allButtonLine {
 	display: flex;
 	justify-content: space-between;
@@ -126,16 +117,18 @@
 	display: flex;
 	justify-content: flex-end;
 }
+.buttonLine.pageLine {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+.buttonLine a {
+	text-decoration: none;
+	color: black;
+}
 .buttonLine.inputpage {
 	width: 70%;
 }
-/* .buttonLine .postRegistBtn, */
-/* .buttonLine .postDetailBtn, */
-/* .buttonLine .postRegistViewBtn { */
-/* 	margin-left: 20px; */
-/* 	width: 90px; */
-/* } */
-
 .buttonLine button {
 	margin-left: 20px;
 	width: 90px;

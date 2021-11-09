@@ -29,10 +29,6 @@
 	background: #fff;
 	resize: none;
 }
-
-/* .page-content-size .contents .content .detailTable th{ */
-/* 	background: #808080; */
-/* } */
 .allButtonLine {
 	display: flex;
 	justify-content: space-between;
@@ -46,16 +42,18 @@
 	display: flex;
 	justify-content: flex-end;
 }
+.buttonLine.pageLine {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+.buttonLine a {
+	text-decoration: none;
+	color: black;
+}
 .buttonLine.inputpage {
 	width: 70%;
 }
-/* .buttonLine .postRegistBtn, */
-/* .buttonLine .postDetailBtn, */
-/* .buttonLine .postRegistViewBtn { */
-/* 	margin-left: 20px; */
-/* 	width: 90px; */
-/* } */
-
 .buttonLine button {
 	margin-left: 20px;
 	width: 90px;

@@ -43,7 +43,10 @@
 					</c:forEach>
 				</tbody>
 			</table>
-			<div class="paging d-flex justify-content-center mt-5">
+		</div>
+		<div class="buttonLine pageLine">
+			<div></div>
+			<div class="paging d-flex justify-content-center align-items-end">
 				<c:if test="${pageMaker.prev ne false}">
 					<a href="/form/form_list_view?page=${pageMaker.startPage - 1}" class="mr-5">[이전]</a>
 				</c:if>
@@ -54,8 +57,6 @@
 					<a href="/form/form_list_view?page=${pageMaker.endPage + 1}">[다음]</a>
 				</c:if>
 			</div>
-		</div>
-		<div class="buttonLine">
 			<button type="button" class="formRegistViewBtn btn btn-success">등록</button>
 		</div>
 	</div>
@@ -72,6 +73,8 @@
 		// 현재 페이지 번호 표시(bold)
 		let pageNum = ${paging.page};
 		$('.page' + pageNum).addClass('font-weight-bold');
+		$('.page' + pageNum).css('font-size', '20px');
+		$('.page' + pageNum).css('height', '27.5px');
 		
 		// 등록화면으로 이동
 		$('.formRegistViewBtn').on('click', function() {

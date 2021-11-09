@@ -35,8 +35,16 @@
 								<td>${commuteInfoView.employee.name}</td>
 								<td>${commuteInfoView.position.name}</td>
 								<td class="attendanceTime"><fmt:formatDate value="${commuteInfoView.commute.attendanceTime}" pattern="yyyy-MM-dd HH:mm:ss" var="attendanceTime"/>${attendanceTime}</td>
-								<td class="quittingTime"><fmt:formatDate value="${commuteInfoView.commute.quittingTime}" pattern="yyyy-MM-dd HH:mm:ss" var="quittingTime"/>${quittingTime}</td>
-								<td class="overTime">${commuteInfoView.commute.overTime}</td>
+								<td class="quittingTime">
+									<c:if test="${not empty commuteInfoView.commute.quittingTime}">
+										<fmt:formatDate value="${commuteInfoView.commute.quittingTime}" pattern="yyyy-MM-dd HH:mm:ss" var="quittingTime"/>${quittingTime}
+									</c:if>
+									<c:if test="${empty commuteInfoView.commute.quittingTime}">-</c:if>
+								</td>
+								<td class="overTime">
+									<c:if test="${not empty commuteInfoView.commute.overTime}">${commuteInfoView.commute.overTime}</c:if>
+									<c:if test="${empty commuteInfoView.commute.overTime}">-</c:if>
+								</td>
 								<td class="d-none"></td>
 							</tr>
 						</c:forEach>
@@ -83,14 +91,6 @@
 		$.datepicker._gotoToday = function(id) {
 			$(id).datepicker('setDate', new Date()).datepicker('hide').blur();
 		};
-		
-		// 데이터 삽입
-		if ($('.quittingTime').text() == '') {
-			$('.quittingTime').text('-');
-		}
-		if ($('.overTime').text() == '') {
-			$('.overTime').text('-');
-		}
 		
 		$('#date').on('change', function() {
 			alert($('#date').val());

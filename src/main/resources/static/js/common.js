@@ -1,11 +1,7 @@
 /**
  * 
  */
- 
- 
- 
- 
- // "-" 처리 함수
+// "-" 처리 함수
 function apostrophe(str) {
 	str = String(str);
 	return str.replace(/(\d)(?=(?:\d{7})+(?!\d))/g, '$1-');

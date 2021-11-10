@@ -138,6 +138,7 @@
 			, `officialId`
 			, `annualIncome`
 			, `salary`
+			, `useLogin`
 			, `profilePath`
 			, `authorityPost`
 			, `authorityGroup`
@@ -276,6 +277,7 @@
 			, `officialId` = #{officialId}
 			, `annualIncome` = #{annualIncome}
 			, `salary` = #{salary}
+			, `useLogin` = #{useLogin}
 			, `profilePath` = #{profilePath}
 			, `authorityPost` = #{authorityPost}
 			, `authorityGroup` = #{authorityGroup}

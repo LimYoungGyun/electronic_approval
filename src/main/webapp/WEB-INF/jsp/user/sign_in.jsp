@@ -54,8 +54,10 @@
 				},
 				success : function(data) {
 					if (data.result == 'success') {
-						alert('login success');
 						location.href = '/home/home_list_view';
+					} else if (data.result == 'movePassword') {
+						alert('환영합니다. \n최초 로그인 사용자는 비밀번호를 변경해야 합니다. \n비밀번호를 입력해주세요.');
+						location.href = '/password/password_change_view';
 					} else {
 						alert('이메일 또는 비밀번호를 확인해주세요.');
 					}

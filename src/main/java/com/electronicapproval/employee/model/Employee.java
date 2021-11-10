@@ -22,6 +22,7 @@ public class Employee {
 	private Integer officialId;
 	private int annualIncome;
 	private int salary;
+	private boolean useLogin;
 	private String profilePath;
 	private String authorityPost;
 	private String authorityGroup;

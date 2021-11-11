@@ -26,12 +26,12 @@ public class FormRestController {
 	 * @param form
 	 * @return
 	 */
-	@PostMapping("/form_insert")
+	@PostMapping("/insert")
 	public Map<String, Object> formInsert(
 			@ModelAttribute Form form) {
 		
 		Map<String, Object> result = new HashMap<>();
-		
+//		form.setReContent(null);
 		form.setStatus("결재 요청");
 		
 		int cnt = formBO.addFrom(form);
@@ -100,7 +100,7 @@ public class FormRestController {
 	 * @param form
 	 * @return
 	 */
-	@PutMapping("/form_update")
+	@PutMapping("/update")
 	public Map<String, Object> formUpdate(@ModelAttribute Form form) {
 		Map<String, Object> result = new HashMap<>();
 		

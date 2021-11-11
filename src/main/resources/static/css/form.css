@@ -45,6 +45,9 @@
 	resize: none;
 	width: 70%;
 }
+.page-content-size .contents .content .inputcontent textarea:disabled {
+	width: 100%;
+}
 
 /* modal */
 .reContent {

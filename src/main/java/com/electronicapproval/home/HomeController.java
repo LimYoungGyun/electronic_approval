@@ -18,7 +18,6 @@ import com.electronicapproval.commute.model.CommuteInfoView;
 import com.electronicapproval.employee.bo.EmployeeBO;
 import com.electronicapproval.employee.model.Employee;
 import com.electronicapproval.form.bo.FormBO;
-import com.electronicapproval.form.model.Form;
 import com.electronicapproval.form.model.FormInfoView;
 import com.electronicapproval.post.bo.PostBO;
 import com.electronicapproval.post.model.Post;
@@ -39,6 +38,12 @@ public class HomeController {
 	@Autowired
 	private CommuteBO commuteBO;
 	
+	/**
+	 * 홈 화면으로 페이지 이동.
+	 * @param request
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/home_list_view")
 	public String homeListView(HttpServletRequest request, Model model) {
 		
@@ -50,7 +55,6 @@ public class HomeController {
 			Employee employee = employeeBO.getEmployeeById(id);
 			emoployeeList.add(employee.getName());
 		}
-		
 		
 		// 휴가자 목록
 		HttpSession session = request.getSession();
@@ -86,5 +90,4 @@ public class HomeController {
 		
 		return "template/layout";
 	}
-	
 }

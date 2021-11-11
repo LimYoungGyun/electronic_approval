@@ -7,7 +7,7 @@
 <script src="/static/js/common.js"></script>
 <div class="page-content-size">
 	<div class="contents box">
-		<form id="formInsertForm" action="/form/form_insert" method="POST">
+		<form id="formInsertForm" action="/form/insert" method="POST">
 			<div class="content">
 				<div class="inputcontent">
 					<div class="form-left">
@@ -154,7 +154,7 @@
 			
 			$.ajax({
 				type:'POST'
-				, url : '/form/form_insert'
+				, url : '/form/insert'
 				, data : {
 					'employeeId' : employeeId // 게시물 작성자 employeeId
 					, 'sendTo' : sendTo // 발신자 직원 Id

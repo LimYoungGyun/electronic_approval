@@ -7,7 +7,7 @@
 <script src="/static/js/common.js"></script>
 <div class="page-content-size">
 	<div class="contents box">
-		<form id="formUpdateForm" action="/form/form_insert" method="POST">
+		<form id="formUpdateForm" action="/form/update" method="POST">
 			<div class="content">
 				<div class="inputcontent">
 					<div class="form-left">
@@ -53,7 +53,7 @@
 				<div class="inputcontent">
 					<div class="form-left">
 						<label for="reContent">반려 사유</label>
-						<textarea rows="5" cols="" id="reContent" name="reContent" class="content form-control">${form.reContent}</textarea>
+						<textarea rows="5" cols="" id="reContent" name="reContent" class="content form-control" disabled>${form.reContent}</textarea>
 					</div>
 				</div>
 			</div>
@@ -162,7 +162,7 @@
 			
 			$.ajax({
 				type:'PUT'
-				, url : '/form/form_update'
+				, url : '/form/update'
 				, data : {
 					'id' : formId // 게시물 작성자 employeeId
 					, 'count' : count // 연차 개수

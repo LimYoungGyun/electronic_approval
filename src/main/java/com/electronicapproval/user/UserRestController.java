@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,8 +38,15 @@ public class UserRestController {
 	
 	@Autowired
 	private CommuteBO commuteBO;
-
-	@RequestMapping("/user/sign_in")
+	
+	/**
+	 * 로그인 API.
+	 * @param email
+	 * @param password
+	 * @param request
+	 * @return
+	 */
+	@PostMapping("/user/sign_in")
 	public Map<String, Object> signIn(
 			@RequestParam("email") String email
 			, @RequestParam("password") String password
@@ -104,6 +111,12 @@ public class UserRestController {
 		return result;
 	}
 	
+	/**
+	 * 최조 로그인시에 비밀번호 변경 API.
+	 * @param password
+	 * @param request
+	 * @return
+	 */
 	@PutMapping("/password/password_change")
 	public Map<String, Object> passwordChange(
 			@RequestParam("password") String password
@@ -130,7 +143,6 @@ public class UserRestController {
 				result.put("result", "fail");
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			session.invalidate();
 		}
 		

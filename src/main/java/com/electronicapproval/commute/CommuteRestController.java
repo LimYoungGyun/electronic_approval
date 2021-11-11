@@ -23,6 +23,12 @@ public class CommuteRestController {
 	@Autowired
 	private CommuteBO commuteBO;
 	
+	/**
+	 * 출근 등록 API.
+	 * @param urlPath
+	 * @param request
+	 * @return
+	 */
 	@PostMapping("/commute_attendanceTime")
 	public Map<String, Object> commuteAttendanceTime(
 			@RequestParam("urlPath") String urlPath
@@ -46,6 +52,12 @@ public class CommuteRestController {
 		return result;
 	}
 	
+	/**
+	 * 퇴근 등록 API. (출근때 등록된 컬럼을 수정)
+	 * @param urlPath
+	 * @param request
+	 * @return
+	 */
 	@PutMapping("/commute_quittingTime")
 	public Map<String, Object> commuteQuittingTime(
 			@RequestParam("urlPath") String urlPath

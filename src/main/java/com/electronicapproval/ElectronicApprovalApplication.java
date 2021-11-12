@@ -6,10 +6,11 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 //@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 @SpringBootApplication
-public class ElectronicApprovalApplication {
+public class ElectronicApprovalApplication extends SpringBootServletInitializer {
 	
 	// Server TimeZone Setting
 	@PostConstruct

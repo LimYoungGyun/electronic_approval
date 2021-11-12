@@ -17,8 +17,10 @@ public class FileManagerService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	public final static String FILE_UPLOAD_PATH = "D:\\marondal\\0_electronic_approval_project\\electronic_approval\\files/";
-	public final static String IMAGE_UPLOAD_PATH = "D:\\marondal\\0_electronic_approval_project\\electronic_approval\\images/";
+//	public final static String FILE_UPLOAD_PATH = "D:\\marondal\\0_electronic_approval_project\\electronic_approval\\files/";
+	public final static String FILE_UPLOAD_PATH = "/home/ec2-user/upload_files/";
+//	public final static String IMAGE_UPLOAD_PATH = "D:\\marondal\\0_electronic_approval_project\\electronic_approval\\images/";
+	public final static String IMAGE_UPLOAD_PATH = "/home/ec2-user/upload_images/";
 	
 	// 파일 업로드
 	public String saveFile(int postId, MultipartFile file, String directoryName) throws IOException {

@@ -27,7 +27,8 @@ public class FileRestController {
 	@GetMapping("/download")
 	public ResponseEntity<Object> download(
 			@RequestParam("filePath") String downFile) {
-		String path = "D:\\\\marondal\\\\0_electronic_approval_project\\\\electronic_approval\\\\" + downFile;
+//		String path = "D:\\\\marondal\\\\0_electronic_approval_project\\\\electronic_approval\\\\" + downFile;
+		String path = "/home/ec2-user/upload_files/" + downFile;
 		
 		try {
 			Path filePath = Paths.get(path);

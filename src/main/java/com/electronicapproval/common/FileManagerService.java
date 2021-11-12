@@ -42,7 +42,7 @@ public class FileManagerService {
 		Path path = Paths.get(filePath + file.getOriginalFilename()); // input에 올린 파일명이다.
 		Files.write(path, bytes);
 		
-		return "/files/" + directoryName + file.getOriginalFilename();
+		return "/upload_files/" + directoryName + file.getOriginalFilename();
 	}
 	
 	// 파일 삭제
@@ -83,7 +83,7 @@ public class FileManagerService {
 		Path path = Paths.get(filePath + file.getOriginalFilename()); // input에 올린 파일명이다.
 		Files.write(path, bytes);
 		
-		return "/images/" + directoryName + file.getOriginalFilename();
+		return "/upload_images/" + directoryName + file.getOriginalFilename();
 	}
 	
 	// 이미지 삭제

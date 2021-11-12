@@ -47,7 +47,7 @@ public class FileManagerService {
 	
 	// 파일 삭제
 	public void deleteFile(String filesPath) throws IOException {
-		Path path = Paths.get(FILE_UPLOAD_PATH + filesPath.replace("/files/", ""));
+		Path path = Paths.get(FILE_UPLOAD_PATH + filesPath.replace("/upload_files/", ""));
 		
 		if (Files.exists(path)) {
 			// 파일이 존재하면 삭제한다.
@@ -58,7 +58,7 @@ public class FileManagerService {
 	
 	// 파일 디렉토리 삭제
 	public void deleteFolder(String filesPath) throws IOException {
-		Path path = Paths.get(FILE_UPLOAD_PATH + filesPath.replace("/files/", ""));
+		Path path = Paths.get(FILE_UPLOAD_PATH + filesPath.replace("/upload_files/", ""));
 		
 		// 디렉토리 삭제
 		path = path.getParent();
@@ -92,7 +92,7 @@ public class FileManagerService {
 		// 실제 경로 : D:\\marondal\\6_spring_project\\ex\\memo_workspace\\Memo\\images/
 		// 실제 경로 + 파라미터 => images가 겹치기 때문에 한쪽(파라미터) /images/를 제거해줌
 		
-		Path path = Paths.get(IMAGE_UPLOAD_PATH + imagePath.replace("/images/", ""));
+		Path path = Paths.get(IMAGE_UPLOAD_PATH + imagePath.replace("/upload_images/", ""));
 		
 		if (Files.exists(path)) {
 			// 파일이 존재하면 삭제한다.

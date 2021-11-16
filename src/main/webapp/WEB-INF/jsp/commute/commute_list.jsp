@@ -93,7 +93,7 @@
 		};
 		
 		$('#date').on('change', function() {
-			alert($('#date').val());
+// 			alert($('#date').val());
 			let searchDate = $('#date').val();
 			location.href='/commute/commute_list_view?searchDate=' + searchDate;
 		});

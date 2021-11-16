@@ -95,23 +95,23 @@
 							</div>
 							<div class="radioArea">
 								<span>그룹관리</span>
-								<input type="radio" id="authorityGroupR" name="authorityGroup" value="R"  checked><label for="authorityGroupR">읽기</label>
+								<input type="radio" id="authorityGroupR" name="authorityGroup" value="R" checked><label for="authorityGroupR">읽기</label>
 								<input type="radio" id="authorityGroupWR" name="authorityGroup" value="WR" ><label for="authorityGroupWR">읽기, 쓰기</label>
 							</div>
 							<div class="radioArea">
 								<span>조직관리</span>
-								<input type="radio" id="authorityEmployeeR" name="authorityEmployee" value="R"  checked><label for="authorityEmployeeR">읽기</label>
+								<input type="radio" id="authorityEmployeeR" name="authorityEmployee" value="R" checked><label for="authorityEmployeeR">읽기</label>
 								<input type="radio" id="authorityEmployeeWR" name="authorityEmployee" value="WR" ><label for="authorityEmployeeWR">읽기, 쓰기</label>
 							</div>
 							<div class="radioArea">
 								<span>출퇴근 관리</span>
-								<input type="radio" id="authorityCommuteR" name="authorityCommute" value="R"  checked><label for="authorityCommuteR">읽기</label>
+								<input type="radio" id="authorityCommuteR" name="authorityCommute" value="R" checked><label for="authorityCommuteR">읽기</label>
 								<input type="radio" id="authorityCommuteWR" name="authorityCommute" value="WR" ><label for="authorityCommuteWR">읽기, 쓰기</label>
 							</div>
 							<div class="radioArea">
 								<span>기안서 관리</span>
-								<input type="radio" id="authorityFormP" name="authorityForm" value="P"  checked><label for="authorityFormP">일부 보기</label>
-								<input type="radio" id="authorityFormA" name="authorityForm" value="WR" ><label for="authorityFormA">전체 보기</label>
+								<input type="radio" id="authorityFormP" name="authorityForm" value="P" checked><label for="authorityFormP">일부 보기</label>
+								<input type="radio" id="authorityFormA" name="authorityForm" value="A" ><label for="authorityFormA">전체 보기</label>
 							</div>
 						</div>
 					</div>

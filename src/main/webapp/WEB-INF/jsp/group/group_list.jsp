@@ -37,7 +37,7 @@
 			</table>
 		</div>
 		<div class="buttonLine pageLine">
-			<div></div>
+			<div> </div>
 			<div class="paging d-flex justify-content-center align-items-end">
 				<c:if test="${pageMaker.prev ne false}">
 					<a href="/group/group_list_view?page=${pageMaker.startPage - 1}" class="mr-5">[이전]</a>
@@ -72,7 +72,7 @@
 		$('.page' + pageNum).css('height', '27.5px');
 		
 		// page size 조절
-		if (${authorityPost == 'WR'}) {
+		if (${authorityGroup == 'WR'}) {
 			$('.space').addClass('d-none');
 		}
 		

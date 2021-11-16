@@ -318,6 +318,7 @@
 			formData.append('remainAnnualLeave', $('#remainAnnualLeave').val()); // new
 			formData.append('annualIncome', uncomma($('#annualIncome').val()));
 			formData.append('salary', uncomma($('#salary').val()));
+			formData.append('useLogin', ${employeeInfoView.employee.useLogin});
 			formData.append('file', $('#profile')[0].files[0]);
 			let filePath;
 			// 불러온 파일 경로

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.electronicapproval.common.EncryptUtils;
+import com.electronicapproval.common.Sha512;
 import com.electronicapproval.employee.bo.EmployeeBO;
 import com.electronicapproval.employee.model.Employee;
 
@@ -52,7 +53,8 @@ public class EmployeeRestController {
 			}
 		}
 		
-		String encryptPassword = EncryptUtils.md5(employee.getPassword());
+//		String encryptPassword = EncryptUtils.md5(employee.getPassword());
+		String encryptPassword = Sha512.getSHA512(employee.getPassword());
 		employee.setPassword(encryptPassword);
 		
 		int cnt = employeeBO.addEmployeeInsert(employee, file);
@@ -101,7 +103,8 @@ public class EmployeeRestController {
 		} 
 		// 비밀번호가 ""가 아닐때
 		else {
-			employee.setPassword(EncryptUtils.md5(employee.getPassword()));
+//			employee.setPassword(EncryptUtils.md5(employee.getPassword()));
+			employee.setPassword(Sha512.getSHA512(employee.getPassword()));
 			cnt = employeeBO.updateEmployeeByPassword(employee, file, filePath);
 		}
 		

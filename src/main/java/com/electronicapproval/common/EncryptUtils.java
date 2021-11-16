@@ -3,6 +3,12 @@ package com.electronicapproval.common;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * md5 해싱
+ * SHA512로 대체 (Sha512.java)
+ * @author young
+ *
+ */
 public class EncryptUtils {
 	public static String md5(String message) {
 		String encData = "";

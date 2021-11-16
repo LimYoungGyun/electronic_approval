@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.electronicapproval.common.EncryptUtils;
+import com.electronicapproval.common.Sha512;
 import com.electronicapproval.commute.bo.CommuteBO;
 import com.electronicapproval.commute.model.Commute;
 import com.electronicapproval.employee.bo.EmployeeBO;
@@ -52,7 +53,8 @@ public class UserRestController {
 			, @RequestParam("password") String password
 			, HttpServletRequest request) {
 		
-		String encryptPassword = EncryptUtils.md5(password);
+//		String encryptPassword = EncryptUtils.md5(password);
+		String encryptPassword = Sha512.getSHA512(password);
 		
 		Employee employee = employeeBO.getEmployeeByEmailAndPassword(email, encryptPassword);
 		
@@ -129,7 +131,8 @@ public class UserRestController {
 			
 			Employee employee = employeeBO.getEmployeeById(employeeId);
 			
-			String encryptPassword = EncryptUtils.md5(password);
+//			String encryptPassword = EncryptUtils.md5(password);
+			String encryptPassword = Sha512.getSHA512(password);
 			employee.setPassword(encryptPassword);
 			employee.setUseLogin(true);
 			

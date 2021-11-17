@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 server:
   port: 80
   servlet:
@@ -17,3 +18,25 @@ spring:
       suffix: .jsp
   servlet:
     multipart:      max-file-size: 10MB
+=======
+server:
+  port: 80
+  servlet:
+    session:
+      timeout: 60m
+  
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/electronic_approval?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: root
+  mvc:
+    static-path-pattern: /static/**
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  servlet:
+    multipart: 
+      max-file-size: 10MB
+>>>>>>> master

@@ -72,7 +72,7 @@
 		
 		<div class="allButtonLine">
 			<div class="delete">
-				<c:if test="${authorityGroup == 'WR'}">
+				<c:if test="${authorityEmployee == 'WR'}">
 					<button type="button" class="employeeDeleteBtn btn btn-danger">삭제</button>
 				</c:if>
 			</div>
